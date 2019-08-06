@@ -1,0 +1,17 @@
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\Test.exe.config
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\Test.exe
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\Test.pdb
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\Microsoft.CodeAnalysis.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\MongoDB.Bson.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\MongoDB.Driver.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\Microsoft.CodeAnalysis.xml
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\Microsoft.CodeAnalysis.CSharp.Workspaces.xml
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\MongoDB.Bson.xml
+C:\DEV\MongoSharp\trunk\src\Test\bin\Release\MongoDB.Driver.xml
+C:\DEV\MongoSharp\trunk\src\Test\obj\Release\Test.Form1.resources
+C:\DEV\MongoSharp\trunk\src\Test\obj\Release\Test.MultiDataGridView.resources
+C:\DEV\MongoSharp\trunk\src\Test\obj\Release\Test.Properties.Resources.resources
+C:\DEV\MongoSharp\trunk\src\Test\obj\Release\Test.csproj.GenerateResource.Cache
+C:\DEV\MongoSharp\trunk\src\Test\obj\Release\Test.exe
+C:\DEV\MongoSharp\trunk\src\Test\obj\Release\Test.pdb

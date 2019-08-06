@@ -1,0 +1,124 @@
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Connections.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoSharp.exe.config
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoSharp.exe
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoSharp.pdb
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.CSharp.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.Workspaces.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoDB.Bson.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoDB.Driver.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoSharp.Model.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Newtonsoft.Json.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\ObjectListView.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Compilers.CSharp.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Compilers.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Compilers.VisualBasic.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Services.CSharp.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Services.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Services.VisualBasic.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Utilities.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\ScintillaNET.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\System.Collections.Immutable.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\System.Reflection.Metadata.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\System.Windows.Forms.Ribbon35.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Jolt.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Jolt.Testing.GeneratedTypes.dll
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoSharp.Model.pdb
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.CSharp.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.CSharp.Workspaces.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.VisualBasic.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.VisualBasic.Workspaces.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Microsoft.CodeAnalysis.Workspaces.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoDB.Bson.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\MongoDB.Driver.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Newtonsoft.Json.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\ObjectListView.pdb
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Compilers.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Compilers.CSharp.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Compilers.VisualBasic.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Services.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Services.CSharp.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Services.VisualBasic.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Roslyn.Utilities.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\ScintillaNET.pdb
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\ScintillaNET.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\System.Collections.Immutable.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\System.Reflection.Metadata.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\System.Windows.Forms.Ribbon35.pdb
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\WeifenLuo.WinFormsUI.Docking.pdb
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Jolt.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\bin\Debug\Jolt.Testing.GeneratedTypes.xml
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.csprojResolveAssemblyReference.cache
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.AboutBox.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.BlankEditor.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.CodeSnippetsWindow.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.ConnectionBrowserWindow.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.EditorWindow.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.Form1.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddCodeSnippet.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddConnection.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddDatabase.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddIndex.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormDatabaseStats.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormIndexProperties.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormInsertImportDocs.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormMain.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormPreferences.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormSaveAll.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormSchema.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormTableName.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddCollection.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.MultiDataGridView.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.OutputWindow.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.Properties.Resources.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.SchemaWindow.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.StandardScintilla.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlBsonTreeView.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlCodeView.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlEditor.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlQueryResults.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlQueryResultsGrid.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlQueryResultsTree.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlResultsJson.resources
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.csproj.GenerateResource.Cache
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.exe
+C:\DEV\MongoSharp\trunk\src\MongoLINQ\obj\Debug\MongoSharp.pdb
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\bin\Debug\MongoSharp.exe.config
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.csprojResolveAssemblyReference.cache
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.AboutBox.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.BlankEditor.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.CodeSnippetsWindow.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.ConnectionBrowserWindow.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.EditorWindow.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.Form1.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddCodeSnippet.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddConnection.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddDatabase.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddIndex.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormDatabaseStats.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormIndexProperties.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormInsertImportDocs.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormMain.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormPreferences.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormSaveAll.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormSchema.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormTableName.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.FormAddCollection.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.MultiDataGridView.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.OutputWindow.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.Properties.Resources.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.SchemaWindow.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.StandardScintilla.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlBsonTreeView.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlCodeView.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlEditor.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlQueryResults.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlQueryResultsGrid.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlQueryResultsTree.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.UserControlResultsJson.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\MongoLINQ\obj\Debug\MongoSharp.csproj.GenerateResource.Cache

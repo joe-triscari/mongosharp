@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F8D9BF33-1A60-470C-A368-B703CD12F358}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MongoSharp</RootNamespace>
+    <AssemblyName>MongoSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.Common.0.7.4052301-beta\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.CSharp.0.7.4052301-beta\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.CSharp.Workspaces.0.7.4052301-beta\lib\net45\Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.VisualBasic">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.VisualBasic.0.7.4052301-beta\lib\net45\Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.VisualBasic.Workspaces.0.7.4052301-beta\lib\net45\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.Workspaces.Common.0.7.4052301-beta\lib\net45\Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.10.0.62, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.10.0.62, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ObjectListView.Official.2.8.1\lib\net20\ObjectListView.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers">
+      <HintPath>..\..\packages\Roslyn.Compilers.Common.1.2.20906.2\lib\net45\Roslyn.Compilers.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.CSharp">
+      <HintPath>..\..\packages\Roslyn.Compilers.CSharp.1.2.20906.2\lib\net45\Roslyn.Compilers.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.VisualBasic">
+      <HintPath>..\..\packages\Roslyn.Compilers.VisualBasic.1.2.20906.2\lib\net45\Roslyn.Compilers.VisualBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services">
+      <HintPath>..\..\packages\Roslyn.Services.Common.1.2.20906.2\lib\net45\Roslyn.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services.CSharp">
+      <HintPath>..\..\packages\Roslyn.Services.CSharp.1.2.20906.2\lib\net45\Roslyn.Services.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services.VisualBasic">
+      <HintPath>..\..\packages\Roslyn.Services.VisualBasic.1.2.20906.2\lib\net45\Roslyn.Services.VisualBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Utilities">
+      <HintPath>..\..\packages\Roslyn.Services.Common.1.2.20906.2\lib\net45\Roslyn.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="ScintillaNET">
+      <HintPath>..\..\ext_bin\ScintillaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>..\..\packages\Microsoft.Bcl.Immutable.1.1.20-beta\lib\portable-net45+win8\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Reflection.Metadata">
+      <HintPath>..\..\packages\Microsoft.Bcl.Metadata.1.0.11-alpha\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms.Ribbon35">
+      <HintPath>..\..\ext_bin\System.Windows.Forms.Ribbon35.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\..\ext_bin\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlankEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlankEditor.Designer.cs">
+      <DependentUpon>BlankEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CodeSnippetsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeSnippetsWindow.Designer.cs">
+      <DependentUpon>CodeSnippetsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom\ColorComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Custom\ColorComboBox.Designer.cs">
+      <DependentUpon>ColorComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConnectionBrowserWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectionBrowserWindow.Designer.cs">
+      <DependentUpon>ConnectionBrowserWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom\CustomDataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Custom\CustomDockPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormEditJsonDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormEditJsonDocument.Designer.cs">
+      <DependentUpon>FormEditJsonDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditorWindow.Designer.cs">
+      <DependentUpon>EditorWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditorWindowManager.cs" />
+    <Compile Include="Helpers\ExcelExport.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormAddCodeSnippet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormAddCodeSnippet.Designer.cs">
+      <DependentUpon>FormAddCodeSnippet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormAddConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormAddConnection.Designer.cs">
+      <DependentUpon>FormAddConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormAddDatabase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormAddDatabase.Designer.cs">
+      <DependentUpon>FormAddDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormAddIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormAddIndex.Designer.cs">
+      <DependentUpon>FormAddIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormDatabaseStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormDatabaseStats.Designer.cs">
+      <DependentUpon>FormDatabaseStats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormIndexProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormIndexProperties.Designer.cs">
+      <DependentUpon>FormIndexProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormInsertImportDocs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormInsertImportDocs.Designer.cs">
+      <DependentUpon>FormInsertImportDocs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormPreferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormPreferences.Designer.cs">
+      <DependentUpon>FormPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormSaveAll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormSaveAll.Designer.cs">
+      <DependentUpon>FormSaveAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormSchema.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormSchema.Designer.cs">
+      <DependentUpon>FormSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormTableName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormTableName.Designer.cs">
+      <DependentUpon>FormTableName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormAddCollection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormAddCollection.Designer.cs">
+      <DependentUpon>FormAddCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IUserControlQueryResult.cs" />
+    <Compile Include="MongoSharpTheme.cs" />
+    <Compile Include="Custom\MultiDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom\MultiDataGridView.Designer.cs">
+      <DependentUpon>MultiDataGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OutputWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OutputWindow.Designer.cs">
+      <DependentUpon>OutputWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\QueryResultConverter.cs" />
+    <Compile Include="SchemaWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SchemaWindow.Designer.cs">
+      <DependentUpon>SchemaWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StandardScintilla.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Custom\TabControlExtended.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TreeNodeTag\IndexNodeTag.cs" />
+    <Compile Include="UserControls\UserControlBsonTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlBsonTreeView.Designer.cs">
+      <DependentUpon>UserControlBsonTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlCodeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlCodeView.Designer.cs">
+      <DependentUpon>UserControlCodeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlEditor.Designer.cs">
+      <DependentUpon>UserControlEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlQueryResults.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlQueryResults.Designer.cs">
+      <DependentUpon>UserControlQueryResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlQueryResultsGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlQueryResultsGrid.Designer.cs">
+      <DependentUpon>UserControlQueryResultsGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlQueryResultsTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlQueryResultsTree.Designer.cs">
+      <DependentUpon>UserControlQueryResultsTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControlResultsJson.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlResultsJson.Designer.cs">
+      <DependentUpon>UserControlResultsJson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VS2012ColorTable.cs" />
+    <Compile Include="VS2012ToolStripRenderer.cs" />
+    <Compile Include="WindowManager.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BlankEditor.resx">
+      <DependentUpon>BlankEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeSnippetsWindow.resx">
+      <DependentUpon>CodeSnippetsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConnectionBrowserWindow.resx">
+      <DependentUpon>ConnectionBrowserWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormEditJsonDocument.resx">
+      <DependentUpon>FormEditJsonDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorWindow.resx">
+      <DependentUpon>EditorWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormAddCodeSnippet.resx">
+      <DependentUpon>FormAddCodeSnippet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormAddConnection.resx">
+      <DependentUpon>FormAddConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormAddDatabase.resx">
+      <DependentUpon>FormAddDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormAddIndex.resx">
+      <DependentUpon>FormAddIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormDatabaseStats.resx">
+      <DependentUpon>FormDatabaseStats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormIndexProperties.resx">
+      <DependentUpon>FormIndexProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormInsertImportDocs.resx">
+      <DependentUpon>FormInsertImportDocs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormPreferences.resx">
+      <DependentUpon>FormPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormSaveAll.resx">
+      <DependentUpon>FormSaveAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormSchema.resx">
+      <DependentUpon>FormSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormTableName.resx">
+      <DependentUpon>FormTableName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormAddCollection.resx">
+      <DependentUpon>FormAddCollection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom\MultiDataGridView.resx">
+      <DependentUpon>MultiDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OutputWindow.resx">
+      <DependentUpon>OutputWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SchemaWindow.resx">
+      <DependentUpon>SchemaWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StandardScintilla.resx">
+      <DependentUpon>StandardScintilla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlBsonTreeView.resx">
+      <DependentUpon>UserControlBsonTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlCodeView.resx">
+      <DependentUpon>UserControlCodeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlEditor.resx">
+      <DependentUpon>UserControlEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlQueryResults.resx">
+      <DependentUpon>UserControlQueryResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlQueryResultsGrid.resx">
+      <DependentUpon>UserControlQueryResultsGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlQueryResultsTree.resx">
+      <DependentUpon>UserControlQueryResultsTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControlResultsJson.resx">
+      <DependentUpon>UserControlResultsJson.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{6d63446d-01bf-445a-934c-42dfa10878be}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Connections.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Undo.png" />
+    <None Include="Resources\Redo.png" />
+    <None Include="Resources\Settings32x32.png" />
+    <None Include="Resources\Validate.ico" />
+    <None Include="Resources\Validate16x16.bmp" />
+    <None Include="Resources\Save16x16.bmp" />
+    <None Include="Resources\Properties.ico" />
+    <None Include="Resources\Erase.ico" />
+    <None Include="Resources\AutoGen16x16.bmp" />
+    <None Include="Resources\AutoGen.ico" />
+    <None Include="Resources\Logo48x48.png" />
+    <None Include="Resources\Execute.png" />
+    <None Include="Resources\Cancel20x20.png" />
+    <None Include="Resources\CodeSnippet16x16.png" />
+    <None Include="Resources\Copy.png" />
+    <None Include="Resources\Cut.png" />
+    <None Include="Resources\ErasePng.png" />
+    <None Include="Resources\Paste.png" />
+    <Content Include="Resources\Properties32x32.bmp" />
+    <None Include="Resources\OK.bmp" />
+    <None Include="Resources\CSFile.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>IF NOT EXIST "$(TargetDir)\SciLexer.dll" copy "$(SolutionDir)ext_bin\SciLexer.dll" "$(TargetDir)"
+IF NOT EXIST "$(TargetDir)\SciLexer64.dll" copy "$(SolutionDir)ext_bin\SciLexer64.dll" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

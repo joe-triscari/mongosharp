@@ -1,0 +1,41 @@
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\Test.exe.config
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\Test.exe
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\Test.pdb
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\MongoDB.Bson.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\MongoDB.Driver.dll
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.xml
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.CSharp.Workspaces.xml
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\MongoDB.Bson.xml
+C:\DEV\MongoSharp\trunk\src\Test\bin\Debug\MongoDB.Driver.xml
+C:\DEV\MongoSharp\trunk\src\Test\obj\Debug\Test.Form1.resources
+C:\DEV\MongoSharp\trunk\src\Test\obj\Debug\Test.MultiDataGridView.resources
+C:\DEV\MongoSharp\trunk\src\Test\obj\Debug\Test.Properties.Resources.resources
+C:\DEV\MongoSharp\trunk\src\Test\obj\Debug\Test.csproj.GenerateResource.Cache
+C:\DEV\MongoSharp\trunk\src\Test\obj\Debug\Test.exe
+C:\DEV\MongoSharp\trunk\src\Test\obj\Debug\Test.pdb
+C:\DEV\MongoSharp\trunk\src\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Test.exe.config
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Test.exe
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Test.pdb
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\MongoDB.Bson.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\MongoDB.Driver.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.Build.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.Build.Framework.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.Build.Tasks.v12.0.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.Build.Engine.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.Build.Utilities.v12.0.dll
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.xml
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\Microsoft.CodeAnalysis.CSharp.Workspaces.xml
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\MongoDB.Bson.xml
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\bin\Debug\MongoDB.Driver.xml
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\obj\Debug\Test.Form1.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\obj\Debug\Test.MultiDataGridView.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\obj\Debug\Test.Properties.Resources.resources
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\obj\Debug\Test.csproj.GenerateResource.Cache
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\obj\Debug\Test.exe
+C:\DEV\MongoSharp - Copy (2)\trunk\src\Test\obj\Debug\Test.pdb
