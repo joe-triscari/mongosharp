@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Model")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Quad/Graphics, Inc.")]
+[assembly: AssemblyCompany("https://github.com/joe-triscari")]
 [assembly: AssemblyProduct("Model")]
-[assembly: AssemblyCopyright("Copyright © Quad/Graphics, Inc. 2013")]
+[assembly: AssemblyCopyright("Copyright © https://github.com/joe-triscari 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
