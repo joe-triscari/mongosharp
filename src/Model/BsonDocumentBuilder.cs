@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using MongoDB.Bson;
 
 namespace MongoSharp.Model
@@ -8,6 +9,7 @@ namespace MongoSharp.Model
     {
         private const int BATCH_SIZE = 500;
 
+        private static readonly FieldInfo BsonElementValueProperty = typeof(BsonElement).GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance);
         public BsonDocument BuildDocument(List<BsonDocument> bsonDocs)
         {
             if (bsonDocs.Count <= BATCH_SIZE)
@@ -45,27 +47,28 @@ namespace MongoSharp.Model
             {
                // BsonElement currentEl = aggregateDoc.GetElement(el.Name);
 
-                BsonElement currentEl = elements.Find(e => e.Name == el.Name);
+                object boxedCurrentEl = (object)elements.Find(e => e.Name == el.Name);
+            
                 if (el.Value.IsBsonDocument)
                 {
                     bool shouldAdd = true;
                     BsonDocument subDoc;
                     
-                    if (currentEl == null)
+                    if (((BsonElement)boxedCurrentEl).Value == null)
                     {
                         subDoc = new BsonDocument(false);
                     }
                     else
                     {
-                        if (currentEl.Value.IsBsonNull || !currentEl.Value.IsBsonDocument ||
-                            currentEl.Value.AsBsonDocument.ElementCount == 0)
+                        if (((BsonElement)boxedCurrentEl).Value.IsBsonNull || !((BsonElement)boxedCurrentEl).Value.IsBsonDocument ||
+                            ((BsonElement)boxedCurrentEl).Value.AsBsonDocument.ElementCount == 0)
                         {
-                            aggregateDoc.RemoveElement(currentEl);
+                            aggregateDoc.RemoveElement(((BsonElement)boxedCurrentEl));
                             subDoc = new BsonDocument(false);
                         }
                         else
                         {
-                            subDoc = currentEl.Value.AsBsonDocument;
+                            subDoc = ((BsonElement)boxedCurrentEl).Value.AsBsonDocument;
                             shouldAdd = false;
                         }
                     }
@@ -78,17 +81,17 @@ namespace MongoSharp.Model
                 {
                     BsonArray subArray;
 
-                    if (currentEl == null)
+                    if (((BsonElement)boxedCurrentEl).Value == null)
                     { // This element doesn't exist in the aggregate document yet.
                         subArray = CombineArray(el.Value.AsBsonArray);
                         aggregateDoc.Add(new BsonElement(el.Name, subArray));
                     }
                     else
                     {
-                        if (currentEl.Value.IsBsonNull || !currentEl.Value.IsBsonArray ||
-                            currentEl.Value.AsBsonArray.Count == 0)
+                        if (((BsonElement)boxedCurrentEl).Value.IsBsonNull || !((BsonElement)boxedCurrentEl).Value.IsBsonArray ||
+                            ((BsonElement)boxedCurrentEl).Value.AsBsonArray.Count == 0)
                         { // This element does exist in the aggregate document but is no good.
-                            aggregateDoc.RemoveElement(currentEl);
+                            aggregateDoc.RemoveElement(((BsonElement)boxedCurrentEl));
                             subArray = CombineArray(el.Value.AsBsonArray);
                             aggregateDoc.Add(new BsonElement(el.Name, subArray));
                         }
@@ -97,25 +100,32 @@ namespace MongoSharp.Model
                             var newBsonArray = el.Value.AsBsonArray;
                             if (newBsonArray.Count > 0)
                             {
-                                var preCombinedArray = new BsonArray(currentEl.Value.AsBsonArray);
+                                var preCombinedArray = new BsonArray(((BsonElement)boxedCurrentEl).Value.AsBsonArray);
                                 preCombinedArray.AddRange(newBsonArray);
                                 var combinedArray = CombineArray(preCombinedArray);
-                                currentEl.Value = combinedArray;
+                                //boxedCurrentEl.SetValue(combinedArray);
+                                BsonElementValueProperty.SetValue(boxedCurrentEl, combinedArray);
+                                //currentEl = new BsonElement(currentEl.Name, combinedArray);
                             }                           
                         }
                     }
                 }
                 else
                 {
-                    if (currentEl != null)
+                    if (((BsonElement)boxedCurrentEl).Value != null)
                     {
-                        if (currentEl.Value.IsBsonNull)
+                        if (((BsonElement)boxedCurrentEl).Value.IsBsonNull)
                         {
-                            currentEl.Value = el.Value.Clone();
+                            //currentEl.SetValue(el.Value.Clone());
+                            BsonElementValueProperty.SetValue(boxedCurrentEl, el.Value.Clone());
+                            //var test = ((BsonElement) boxedCurrentEl).Value;
+                            //currentEl = new BsonElement(currentEl.Name ?? "", BsonNull.Value);
                         }
-                        else if (IsTypeGreater(currentEl.Value, el.Value))
+                        else if (IsTypeGreater(((BsonElement)boxedCurrentEl).Value, el.Value))
                         {
-                            currentEl.Value = el.Value.Clone();
+                            //currentEl.SetValue(el.Value.Clone());
+                            BsonElementValueProperty.SetValue(boxedCurrentEl, el.Value.Clone());
+                            //currentEl = new BsonElement(currentEl.Name, el.Value.Clone());
                         }
                     }
                     else

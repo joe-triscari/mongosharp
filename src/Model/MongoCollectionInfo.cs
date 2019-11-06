@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace MongoSharp.Model
@@ -17,22 +14,25 @@ namespace MongoSharp.Model
         }
         [XmlAttribute]
         public string Name { get; set; }
+        [XmlAttribute]
+        public string Namespace { get; set; }
         public List<MongoCollectionModelInfo> Models { get; set; }
 
         [XmlIgnore]
         public MongoDatabaseInfo Database { get; set; }
 
         [XmlIgnore]
-        public bool HasModel { get { return Models != null && Models.Count > 0; } }
+        public bool HasModel => Models != null && Models.Count > 0;
 
         [XmlIgnore]
-        public string Path
-        {
-            get
-            {
-                return String.Format("{0}.{1}.{2}", this.Database.Connection.Name, this.Database.Name, this.Name);
-            }
-        }
+        public bool HasNamespace => !String.IsNullOrWhiteSpace(Namespace);
+
+        [XmlIgnore]
+        public string Path => $"{Database.Connection.Name}.{Database.Name}.{Name}";
+
+        [XmlIgnore]
+        public string DefaultNamespace =>
+            $"{Database.Connection.Name.Replace(' ', '_')}.{Database.Name.Replace(' ', '_')}.{Name.Replace(' ', '_')}";
 
         public MongoCollection GetMongoCollection()
         {

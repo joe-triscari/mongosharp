@@ -134,12 +134,12 @@ namespace DocsByReflection
         /// <summary>
         /// A cache used to remember Xml documentation for assemblies
         /// </summary>
-        static Dictionary<Assembly, XmlDocument> cache = new Dictionary<Assembly, XmlDocument>();
+        static readonly Dictionary<Assembly, XmlDocument> cache = new Dictionary<Assembly, XmlDocument>();
 
         /// <summary>
         /// A cache used to store failure exceptions for assembly lookups
         /// </summary>
-        static Dictionary<Assembly, Exception> failCache = new Dictionary<Assembly, Exception>();
+        static readonly Dictionary<Assembly, Exception> failCache = new Dictionary<Assembly, Exception>();
 
         /// <summary>
         /// Obtains the documentation file for the specified assembly

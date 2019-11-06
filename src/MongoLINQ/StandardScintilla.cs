@@ -5,8 +5,7 @@ using System.Windows.Forms;
 using System.Linq;
 using ScintillaNET;
 using Microsoft.CodeAnalysis;
-using MongoSharp.Model;
-using MongoSharp.Model.CodaAnalysis;
+using MongoSharp.Model.CodeAnalysis;
 
 namespace MongoSharp
 {
@@ -66,6 +65,40 @@ namespace MongoSharp
 
             this.LostFocus += StandardScintilla_LostFocus;
             this.GotFocus += StandardScintilla_GotFocus;
+
+
+
+            // Set the lexer
+            this.Lexing.Lexer = Lexer.Cpp;
+
+            // Instruct the lexer to calculate folding
+            this.Lexing.SetProperty("fold", "1");
+            this.Lexing.SetProperty("fold.compact", "1");
+
+            // Configure a margin to display folding symbols
+            this.Margins[2].Type = MarginType.Symbol;
+            this.Margins[2].Mask = Margin.Left;
+            this.Margins[2].IsFoldMargin = true;
+            this.Margins[2].Width = 20;
+
+            // Set colors for all folding markers
+            for (int i = 25; i <= 31; i++)
+            {
+                Markers[i].ForeColor = (SystemColors.ControlLightLight);
+                Markers[i].ForeColor = (SystemColors.ControlDark);
+            }
+
+            // Configure folding markers with respective symbols
+            //Markers[Marker.Folder].Symbol = MarkerSymbol.BoxPlus;
+            //Markers[Marker.FolderOpen].Symbol = MarkerSymbol.BoxMinus;
+            //Markers[Marker.FolderEnd].Symbol = MarkerSymbol.BoxPlusConnected;
+            //Markers[Marker.FolderMidTail].Symbol = MarkerSymbol.TCorner;
+            //Markers[Marker.FolderOpenMid].Symbol = MarkerSymbol.BoxMinusConnected;
+            //Markers[Marker.FolderSub].Symbol = MarkerSymbol.VLine;
+            //Markers[Marker.FolderTail].Symbol = MarkerSymbol.LCorner;
+
+            // Enable automatic folding
+            // AutomaticFold = (AutomaticFold.Show | AutomaticFold.Click | AutomaticFold.Change);
         }
 
         void StandardScintilla_GotFocus(object sender, EventArgs e)
@@ -93,7 +126,8 @@ namespace MongoSharp
             if (fullCode == String.Empty)
                 return;
 
-            var diagnostics = new CodeAnalysisService().GetDiagnostics(fullCode);
+            var cas = new CodeAnalysisService();
+            var diagnostics = cas.GetDiagnostics(fullCode);
             this.Indicators.Reset();
             foreach(var d in diagnostics)
             {
@@ -103,7 +137,7 @@ namespace MongoSharp
 
                 int length = d.Location.SourceSpan.IsEmpty ? 1 : d.Location.SourceSpan.Length;
                 var r = new Range(start, start + length, this);
-                Indicator ind = null;
+                ScintillaNET.Indicator ind = null;
 
                 if(d.Severity == DiagnosticSeverity.Error)
                 {                    
@@ -119,7 +153,7 @@ namespace MongoSharp
                 }
 
                 if(ind != null)
-                    r.SetIndicator(ind.Number);
+                    r.SetIndicator(ind.Index);
             }
         }
 
@@ -160,7 +194,6 @@ namespace MongoSharp
             if (curpos < 0)
                 return;
 
-            #region NewCode
             SymbolResult result = new CodeAnalysisService().LookupSymbols(fullCode, curpos, c);
             var completionList = result.GetAutoCompleteList();
             if (completionList.Any())
@@ -177,32 +210,6 @@ namespace MongoSharp
                 var ol = new ScintillaNET.OverloadList(overloadList.ToArray());
                 this.CallTip.ShowOverload(ol); 
             }
-            return;
-            #endregion 
-
-            //if (c == '.')
-            //{
-            //    List<string> symbols = new CodeAnalysisServiceOld().GetCompletionListAtPosition(fullCode, curpos);
-            //    if (symbols.Any())
-            //    {
-            //        this.AutoComplete.Show(5, symbols);
-            //    }
-            //}
-            //else if(c == '(' || c == ',')
-            //{
-            //    if (c == ',') curpos += 2;
-
-            //    List<string> results = new CodeAnalysisServiceOld().GetMethodCompletionListAtPosition(fullCode, curpos);
-            //    if(results.Any())
-            //    {
-            //        this.CallTip.BackColor = Color.FromArgb(231, 232, 236);
-            //        this.CallTip.ForeColor = Color.Black;
-            //        this.Styles[ScintillaNET.StylesCommon.CallTip].Font = _callTipFont;
-                
-            //        var ol = new ScintillaNET.OverloadList(results.ToArray());
-            //        this.CallTip.ShowOverload(ol);                    
-            //    }
-            //}
         }
 
         void scintillaCodeView_DwellEnd(object sender, ScintillaNET.ScintillaMouseEventArgs e)

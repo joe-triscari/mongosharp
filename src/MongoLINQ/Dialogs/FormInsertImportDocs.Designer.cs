@@ -33,6 +33,7 @@
             this.tabPageInsert = new System.Windows.Forms.TabPage();
             this.txtJson = new System.Windows.Forms.TextBox();
             this.lblInsert = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tabPageImport = new System.Windows.Forms.TabPage();
             this.txtBoxImportFile = new System.Windows.Forms.TextBox();
             this.cbxStopOnError = new System.Windows.Forms.CheckBox();
@@ -42,10 +43,11 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnValidate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBoxIsArray = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageInsert.SuspendLayout();
             this.tabPageImport.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -93,6 +95,14 @@
             this.lblInsert.Size = new System.Drawing.Size(158, 13);
             this.lblInsert.TabIndex = 0;
             this.lblInsert.Text = "Type json document below";
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(508, 25);
+            this.panel2.TabIndex = 2;
             // 
             // tabPageImport
             // 
@@ -173,19 +183,22 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkBoxIsArray);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 273);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(522, 41);
             this.panel1.TabIndex = 4;
             // 
-            // panel2
+            // checkBoxIsArray
             // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(508, 25);
-            this.panel2.TabIndex = 2;
+            this.checkBoxIsArray.AutoSize = true;
+            this.checkBoxIsArray.Location = new System.Drawing.Point(270, 10);
+            this.checkBoxIsArray.Name = "checkBoxIsArray";
+            this.checkBoxIsArray.Size = new System.Drawing.Size(67, 17);
+            this.checkBoxIsArray.TabIndex = 0;
+            this.checkBoxIsArray.Text = "Is Array?";
+            this.checkBoxIsArray.UseVisualStyleBackColor = true;
             // 
             // FormInsertImportDocs
             // 
@@ -206,6 +219,8 @@
             this.tabPageInsert.PerformLayout();
             this.tabPageImport.ResumeLayout(false);
             this.tabPageImport.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -226,5 +241,6 @@
         private System.Windows.Forms.Button btnValidate;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox checkBoxIsArray;
     }
 }

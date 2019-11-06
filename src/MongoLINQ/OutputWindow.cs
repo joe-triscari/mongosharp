@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.UI;
 using MongoSharp.Model.Interface;
 using WeifenLuo.WinFormsUI.Docking;
 using MongoSharp.Model;
@@ -15,7 +14,7 @@ namespace MongoSharp
 
         public string Output
         {
-            get { return this.txtOutput.Text; }
+            get => this.txtOutput.Text;
             set
             {               
                 this.txtOutput.Text = value;

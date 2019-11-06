@@ -7,18 +7,18 @@ using MongoDB.Driver;
 
 namespace MongoSharp.Model
 {
-    static public class MongoCollectionSchemaStore
+    public static class MongoCollectionSchemaStore
     {
         private static readonly Dictionary<string, MongoCollectionSchema> _docs = new Dictionary<string, MongoCollectionSchema>();
 
-        static public MongoCollectionSchema GetSchemaDocument(MongoDatabaseInfo databaseInfo, string collectionName)
+        public static MongoCollectionSchema GetSchemaDocument(MongoDatabaseInfo databaseInfo, string collectionName)
         {
             return GetSchemaDocument(databaseInfo, collectionName, 10000);
         }
 
-        static public MongoCollectionSchema GetSchemaDocument(MongoDatabaseInfo databaseInfo, string collectionName, int maxSampleSize)
+        public static MongoCollectionSchema GetSchemaDocument(MongoDatabaseInfo databaseInfo, string collectionName, int maxSampleSize)
         {
-            string key = String.Format("{0}-{1}", databaseInfo.Connection.Name, collectionName);
+            string key = $"{databaseInfo.Connection.Name}-{collectionName}";
             if (_docs.ContainsKey(key))
                 return _docs[key];
 

@@ -58,10 +58,7 @@ namespace MongoSharp
             }
         }
 
-        public DataGridView DataGridView
-        {
-            get { return dataGridView1; }
-        }
+        public DataGridView DataGridView => dataGridView1;
 
         private void AddDataTableCurrentRow(int rowIndex)
         {
@@ -151,7 +148,7 @@ namespace MongoSharp
         public string CreateTable(string tableName)
         {
             var sb = new StringBuilder("create table " + tableName + " (" + Environment.NewLine);
-            string insertSyntax = String.Format("insert into {0} (", tableName);
+            string insertSyntax = $"insert into {tableName} (";
 
             var columns = new List<DataGridViewColumn>();
             for (int i = 0; i < dataGridView1.Columns.Count; ++i)
@@ -209,7 +206,7 @@ namespace MongoSharp
                 return;
 
             var dataTable = dataGridView1[e.ColumnIndex, e.RowIndex].Value as CustomDataTable;
-            if(dataTable != null && dataTable.OriginalObject != null)
+            if(dataTable?.OriginalObject != null)
             {
                 try
                 {

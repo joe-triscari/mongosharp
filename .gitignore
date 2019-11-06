@@ -1,0 +1,33 @@
+# /
+/.vs
+
+# /src/Model/
+/src/Model/bin
+/src/Model/obj
+
+# /src/Model.Test/
+/src/Model.Test/bin
+/src/Model.Test/obj
+
+# /src/WebApi.Client/
+/src/WebApi.Client/bin
+/src/WebApi.Client/obj
+
+# /src/WebLibrary/
+/src/WebLibrary/bin
+/src/WebLibrary/obj
+/src/WebLibrary/*.user
+
+# /src/WebLibrary/Properties/PublishProfiles/
+/src/WebLibrary/Properties/PublishProfiles/PublishDev.pubxml.user
+
+# /src/WebLibrary/Publish/
+/src/WebLibrary/Publish/Audit.xml
+
+# /src/WebLibrary
+/src/WebLibrary/node_modules/
+
+# /src/WebLibrary.Tests/
+/src/WebLibrary.Tests/bin
+/src/WebLibrary.Tests/obj
+ 

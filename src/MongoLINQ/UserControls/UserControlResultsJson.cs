@@ -2,8 +2,6 @@
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoSharp.Model;
@@ -39,7 +37,7 @@ namespace MongoSharp
                     foreach (object rawResult in _queryResult.RawResults)
                     {
                         string json = rawResult is BsonDocument ? GetPrettyPrintedJson((BsonDocument)rawResult) :
-                                                                    JsonConvert.SerializeObject(rawResult, Formatting.Indented);
+                                                                    Newtonsoft.Json.JsonConvert.SerializeObject(rawResult, Formatting.Indented);
                         sb.AppendLine("/* " + (counter++) + " */" + System.Environment.NewLine + json);
                     }
 

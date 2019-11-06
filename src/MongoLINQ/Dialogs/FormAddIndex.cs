@@ -1,22 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 
 using MongoSharp.Model;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 
 namespace MongoSharp
 {
@@ -84,7 +74,7 @@ namespace MongoSharp
             }
             catch(Exception ex1)
             {
-                throw new Exception(String.Format("Invalid index json.\r\n\r\n{0}", ex1.Message));
+                throw new Exception($"Invalid index json.\r\n\r\n{ex1.Message}");
             }
 
             string optionJson = textBoxIndexOptionsJson.Text.Trim();
@@ -101,7 +91,7 @@ namespace MongoSharp
                 }
                 catch (Exception ex1)
                 {
-                    throw new Exception(String.Format("Invalid options json.\r\n\r\n{0}", ex1.Message));
+                    throw new Exception($"Invalid options json.\r\n\r\n{ex1.Message}");
                 }
             }
 
@@ -124,8 +114,8 @@ namespace MongoSharp
                 options.Add("sparse", checkBoxSparse.Checked);
 
             var mongoCollection = MongoCollectionInfo.GetMongoCollection();
-            var writeConcernResult = mongoCollection.CreateIndex(keys, options);
-            if (!writeConcernResult.Ok && writeConcernResult.HasLastErrorMessage)
+            WriteConcernResult writeConcernResult = mongoCollection.CreateIndex(keys, options);
+            if (writeConcernResult.HasLastErrorMessage)
                 throw new Exception(writeConcernResult.LastErrorMessage);
         }
 
@@ -161,12 +151,12 @@ namespace MongoSharp
             var optionBuilder = new IndexOptionsBuilder();
             optionBuilder.SetUnique(checkBoxUnique.Checked);
             optionBuilder.SetBackground(checkBoxBackground.Checked);
-            optionBuilder.SetDropDups(checkBoxUnique.Checked ? checkBoxDropDups.Checked : false);
+            optionBuilder.SetDropDups(checkBoxUnique.Checked && checkBoxDropDups.Checked);
             optionBuilder.SetSparse(checkBoxSparse.Checked);
             optionBuilder.SetName(indexName);
 
             var writeConcernResult = mongoCollection.CreateIndex(keyBuilder, optionBuilder);
-            if (!writeConcernResult.Ok && writeConcernResult.HasLastErrorMessage)
+            if (writeConcernResult.HasLastErrorMessage)
                 throw new Exception(writeConcernResult.LastErrorMessage);
         }
 

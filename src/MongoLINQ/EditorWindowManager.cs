@@ -5,16 +5,15 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using MongoSharp.Model;
-using MongoSharp.Model.Interface;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace MongoSharp
 {
-    static public class EditorWindowManager
+    public static class EditorWindowManager
     {
-        static private readonly List<EditorWindow> _editorWindows = new List<EditorWindow>();
+        private static readonly List<EditorWindow> _editorWindows = new List<EditorWindow>();
 
-        static public void OpenNew()
+        public static void OpenNew()
         {            
             var doc = CreateNewDocument();
             doc.IsNew = true;
@@ -22,7 +21,7 @@ namespace MongoSharp
             doc.Show(WindowManager.Instance.MainDockPanel, DockState.Document);
         }
 
-        static public void OpenNew(string connectionName, string databaseName, string collectionName)
+        public static void OpenNew(string connectionName, string databaseName, string collectionName)
         {
             var doc = CreateNewDocument();
             doc.IsLoading = true;
@@ -40,12 +39,12 @@ namespace MongoSharp
             }).Start();
         }
 
-        static public void SaveActive(bool saveAs = false)
+        public static void SaveActive(bool saveAs = false)
         {
             SaveDocument(FindActiveDocument(), saveAs);
         }
 
-        static public bool SaveAll(List<EditorWindow> modified)
+        public static bool SaveAll(List<EditorWindow> modified)
         {            
             if (modified.Any())
             {
@@ -57,12 +56,12 @@ namespace MongoSharp
             return false;
         }
 
-        static public bool SaveAll()
+        public static bool SaveAll()
         {
             return SaveAll(_editorWindows.FindAll(w => w.IsModified));
         }
 
-        static public bool SaveDocument(EditorWindow editorWindow, bool saveAs=false)
+        public static bool SaveDocument(EditorWindow editorWindow, bool saveAs=false)
         {
             bool wasSaved = false;
 
@@ -98,7 +97,7 @@ namespace MongoSharp
             return wasSaved;
         }
 
-        static public void Open()
+        public static void Open()
         {
             var openDialog = new OpenFileDialog { Filter = "lnq|*.lnq", Multiselect = true};
             openDialog.FileOk += (sender, args) =>
@@ -132,7 +131,7 @@ namespace MongoSharp
             openDialog.ShowDialog(WindowManager.Instance.MainForm); 
         }
 
-        static public void Open(string fileName)
+        public static void Open(string fileName)
         {
             var exisingDoc = _editorWindows.Find(x => x.FileName != null && x.FileName.Equals(fileName, StringComparison.CurrentCultureIgnoreCase));
             if (exisingDoc != null)
@@ -157,7 +156,7 @@ namespace MongoSharp
             }).Start();
         }
 
-        static public bool SaveQuery(EditorWindow editorWindow)
+        public static bool SaveQuery(EditorWindow editorWindow)
         {
             if (editorWindow.IsModified)
             {
@@ -179,7 +178,7 @@ namespace MongoSharp
             return true;
         }
 
-        static public bool Close(EditorWindow editorWindow, bool callFormClose)
+        public static bool Close(EditorWindow editorWindow, bool callFormClose)
         {
             if (!SaveQuery(editorWindow))
                 return false;
@@ -196,19 +195,19 @@ namespace MongoSharp
             return true;
         }
 
-        static public bool CloseAllButThis(EditorWindow editorWindow)
+        public static bool CloseAllButThis(EditorWindow editorWindow)
         {
             return CloseWindows(from w in _editorWindows
                                 where w != editorWindow
                                 select w);
         }
 
-        static public bool CloseAll()
+        public static bool CloseAll()
         {
             return CloseWindows(_editorWindows);
         }
 
-        static private bool CloseWindows(IEnumerable<EditorWindow> windows)
+        private static bool CloseWindows(IEnumerable<EditorWindow> windows)
         {
             bool shouldCancel = true;
 
@@ -241,7 +240,7 @@ namespace MongoSharp
             return shouldCancel;
         }
 
-        static public void OnEditorChanged(EditorWindow doc)
+        public static void OnEditorChanged(EditorWindow doc)
         {
             if(doc.IsLoading)
                 return;
@@ -257,18 +256,18 @@ namespace MongoSharp
             }
         }
 
-        static private EditorWindow FindActiveDocument()
+        private static EditorWindow FindActiveDocument()
         {
             return WindowManager.Instance.MainDockPanel.Documents.FirstOrDefault(content => content.DockHandler.IsActivated) as EditorWindow;
         }
 
-        static private IDockContent FindDocument(string text)
+        private static IDockContent FindDocument(string text)
         {
 
             return WindowManager.Instance.MainDockPanel.Documents.FirstOrDefault(content => content.DockHandler.TabText.TrimEnd('*', ' ') == text);
         }
 
-        static private EditorWindow CreateNewDocument()
+        private static EditorWindow CreateNewDocument()
         {
             var editor = new EditorWindow();
 
@@ -283,7 +282,7 @@ namespace MongoSharp
             return editor;
         }
 
-        static public void SetEditorPreferences(IEditorPreferences preferences)
+        public static void SetEditorPreferences(IEditorPreferences preferences)
         {
             foreach(var w in _editorWindows)
             {

@@ -1,5 +1,4 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -8,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Model")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("https://github.com/joe-triscari")]
+[assembly: AssemblyCompany("Quad/Graphics, Inc.")]
 [assembly: AssemblyProduct("Model")]
-[assembly: AssemblyCopyright("Copyright © https://github.com/joe-triscari 2019")]
+[assembly: AssemblyCopyright("Copyright © Quad/Graphics, Inc. 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -74,13 +74,23 @@ namespace MongoSharp
 
             try
             {
-                string connect = String.IsNullOrWhiteSpace(txtBoxUsername.Text) ?
-                    String.Format("mongodb://{0}", txtBoxServer.Text) :
-                    String.Format("mongodb://{0}:{1}@{2}", txtBoxUsername.Text, txtBoxPassword.Text, txtBoxServer.Text);
+                string databaseString = txtBoxDatabase.Text.Trim().TrimEnd(',');
+                string connect;
+                if (String.IsNullOrWhiteSpace(databaseString))
+                {
+                    connect = String.IsNullOrWhiteSpace(txtBoxUsername.Text)
+                                  ? $"mongodb://{txtBoxServer.Text}"
+                                  : $"mongodb://{txtBoxUsername.Text}:{txtBoxPassword.Text}@{txtBoxServer.Text}";
+                }
+                else
+                {
+                    connect = String.IsNullOrWhiteSpace(txtBoxUsername.Text) ? $"mongodb://{txtBoxServer.Text}/{databaseString}"
+                        : $"mongodb://{txtBoxUsername.Text}:{txtBoxPassword.Text}@{txtBoxServer.Text}/{databaseString}";
+                }                
 
                 client = new MongoClient(connect);               
                 server = client.GetServer();
-
+                //var databaseNames = server.GetDatabaseNames();
                 server.Connect();
             }
             catch (Exception ex)
@@ -90,7 +100,7 @@ namespace MongoSharp
                 return false;
             }
 
-            var databases = txtBoxDatabase.Text.Split(new char[] {','});
+            var databases = txtBoxDatabase.Text.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
             foreach (string database in databases)
             {
                 try

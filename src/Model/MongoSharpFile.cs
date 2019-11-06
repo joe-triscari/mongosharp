@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -23,8 +21,7 @@ namespace MongoSharp.Model
         public string ToSaveFormat()
         {
             string xml =
-                String.Format("<Settings ConnectionName='{0}' DatabaseName='{1}' CollectionName='{2}' Mode='{3}'/>",
-                        ConnectionName, DatabaseName, CollectionName, QueryMode);
+                $"<Settings ConnectionName='{ConnectionName}' DatabaseName='{DatabaseName}' CollectionName='{CollectionName}' Mode='{QueryMode}'/>";
             return xml + "<![CDATA[" + QueryText + "]]>";
         }
 

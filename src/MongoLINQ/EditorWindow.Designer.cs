@@ -270,6 +270,8 @@
             this.scintillaLinqCode.TabIndex = 0;
             this.scintillaLinqCode.DocumentChange += new System.EventHandler<ScintillaNET.NativeScintillaEventArgs>(this.scintillaLinqCode_DocumentChange);
             this.scintillaLinqCode.Load += new System.EventHandler(this.scintillaLinqCode_Load);
+            this.scintillaLinqCode.DragDrop += new System.Windows.Forms.DragEventHandler(this.scintillaLinqCode_DragDrop);
+            this.scintillaLinqCode.DragEnter += new System.Windows.Forms.DragEventHandler(this.scintillaLinqCode_DragEnter);
             // 
             // imageListAutoComplete
             // 

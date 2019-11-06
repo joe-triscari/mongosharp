@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Formatting;
 using MongoDB.Bson;
@@ -19,8 +17,7 @@ namespace MongoSharp.Model
             }
 
             SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(code);
-            var workspace = Microsoft.CodeAnalysis.MSBuild.MSBuildWorkspace.Create();
-
+            var workspace = new AdhocWorkspace();
             var formattedResult = Formatter.Format(syntaxTree.GetRoot(), workspace);
 
             var formattedCode = formattedResult.ToFullString();

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace MongoSharp.Model
@@ -32,14 +29,12 @@ namespace MongoSharp.Model
         {
             if (String.IsNullOrWhiteSpace(databaseName))
             {
-                return String.IsNullOrWhiteSpace(Username) ?
-                            String.Format("mongodb://{0}", ServerString) :
-                            String.Format("mongodb://{0}:{1}@{2}", Username, Password, ServerString);
+                return String.IsNullOrWhiteSpace(Username) ? $"mongodb://{ServerString}"
+                    : $"mongodb://{Username}:{Password}@{ServerString}";
             }            
 
-            return String.IsNullOrWhiteSpace(Username) ?
-                        String.Format("mongodb://{0}/{1}", ServerString, databaseName) :
-                        String.Format("mongodb://{0}:{1}@{2}/{3}", Username, Password, ServerString, databaseName);
+            return String.IsNullOrWhiteSpace(Username) ? $"mongodb://{ServerString}/{databaseName}"
+                : $"mongodb://{Username}:{Password}@{ServerString}/{databaseName}";
         }
 
         public bool IsValid(string databaseName)
@@ -61,6 +56,7 @@ namespace MongoSharp.Model
         {
             var settings = MongoClientSettings.FromUrl(MongoUrl.Create(GetConnectionString(databaseName)));
             var client = new MongoClient(settings);
+            
             MongoServer server = client.GetServer();
             return server;
         }

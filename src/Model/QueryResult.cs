@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using MongoDB.Bson;
-using MongoDB.Driver.Linq;
 
 namespace MongoSharp.Model
 {
     public class QueryResult
     {
+        private class MultiValueColumn { };
+
         public List<List<Object>> Results { get; set; }
         public List<PropertyData> Properties { get; set; }
         public Type Type { get; set; }
@@ -18,23 +18,42 @@ namespace MongoSharp.Model
 
         public bool IsBsonDocuments { get; set; }
 
-        static public QueryResult ToQueryResultFromList(IEnumerable<Object> results)
+        public static QueryResult ToQueryResultFromList(IEnumerable<Object> results)
         {
             var queryResult = new QueryResult();
             List<object> list = results.ToList();
 
             if (list.Any())
             {
-                var firstObj = list.Find(x => x != null);
+                var types = (from x in list
+                             where x != null
+                             group x by x.GetType() into grp
+                             select grp.Key).ToList();
+
+                object firstObj = null;
+                if (types.Count < 2)
+                {
+                    firstObj = list.Find(x => x != null);
+                }
+                else
+                {
+                    firstObj = new MultiValueColumn();
+                }
+
                 if(firstObj == null)
                 {
                     queryResult.Results = list.Select(result => new List<object>()).ToList();
                     queryResult.Properties = new List<PropertyData> { new PropertyData { Name = "Result", Type = typeof(string) } }; 
                 }
+                else if(firstObj.GetType() == typeof(MultiValueColumn))
+                {
+                    queryResult.Results = list.Select(result => new List<object> { result }).ToList();
+                    queryResult.Properties = new List<PropertyData> { new PropertyData { Name = "Result", Type = typeof(MultiValueColumn) } };
+                }
                 else if (firstObj.GetType().IsSimpleType())
                 {
                     queryResult.Results = list.Select(result => new List<object> { result == null ? "null" : result.ToString() }).ToList();
-                    queryResult.Properties = new List<PropertyData> { new PropertyData { Name = "Result", Type = firstObj.GetType() } }; 
+                    queryResult.Properties = new List<PropertyData> { new PropertyData { Name = "Result", Type = firstObj.GetType().BaseType == typeof(BsonValue) ? typeof(string) : firstObj.GetType() } }; 
                 }
                 else if (firstObj.GetType() == typeof (BsonDocument))
                 {
@@ -89,7 +108,7 @@ namespace MongoSharp.Model
             return queryResult;
         }
 
-        static public QueryResult ToQueryResult<T>(T result)
+        public static QueryResult ToQueryResult<T>(T result)
         {
             IEnumerable<object> list;
             bool isBsonDocuments = false;
@@ -113,6 +132,7 @@ namespace MongoSharp.Model
                 {
                     genericMethod = toList.MakeGenericMethod(typeof(object));
                 }
+
                 var enumerable = (IEnumerable) genericMethod.Invoke(null, new object[] {result});
                 list = enumerable.Cast<object>();
                 if(list.Any())

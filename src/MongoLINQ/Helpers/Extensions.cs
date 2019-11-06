@@ -2,7 +2,7 @@
 
 namespace MongoSharp
 {
-    static public class Extensions
+    public static class Extensions
     {
         public static void SetLanguage(this Scintilla scintilla, string lang)
         {

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -28,7 +26,7 @@ namespace MongoSharp.Model
             var server = client.GetServer();
             var db = server.GetDatabase(Name);
             if (!db.CollectionExists(collectionName))
-                throw new Exception(String.Format("Collection '{0}' does not exist in database '{1}'.", collectionName, Name));
+                throw new Exception($"Collection '{collectionName}' does not exist in database '{Name}'.");
 
             var collection = db.GetCollection(collectionName);
 
@@ -55,8 +53,7 @@ namespace MongoSharp.Model
         {
             var mongoServer = Connection.GetMongoServer(Name);
 
-            string message;
-            if (!mongoServer.IsDatabaseNameValid(Name, out message))
+            if (!mongoServer.IsDatabaseNameValid(Name, out var message))
                 return null;
 
             var mongoDb = mongoServer.GetDatabase(Name);
@@ -69,6 +66,7 @@ namespace MongoSharp.Model
             {
                 var mongoDb = GetMongoDatabase();
                 if (mongoDb == null) return false;
+               
                 var databases = mongoDb.GetCollectionNames();
             }
             catch(Exception e)

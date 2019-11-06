@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
+﻿using MongoDB.Driver;
 using MongoSharp.Model;
 
 namespace MongoSharp.TreeNodeTag
 {
     public class TreeNodeTag
     {
-        virtual public object GetData()
+        public virtual object GetData()
         {
             return this;
         }
@@ -25,7 +18,7 @@ namespace MongoSharp.TreeNodeTag
         public MongoCollectionInfo MongoCollectionInfo { get; set; }
         public IndexInfo IndexInfo { get; set; }
 
-        override public object GetData()
+        public override object GetData()
         {
             return this;
         }
@@ -39,7 +32,7 @@ namespace MongoSharp.TreeNodeTag
         }
         public MongoCollectionInfo MongoCollectionInfo { get; set; }
 
-        override public object GetData()
+        public override object GetData()
         {
             return MongoCollectionInfo;
         }
@@ -53,7 +46,7 @@ namespace MongoSharp.TreeNodeTag
         }
         public MongoDatabaseInfo MongoDatabaseInfo { get; set; }
 
-        override public object GetData()
+        public override object GetData()
         {
             return MongoDatabaseInfo;
         }
@@ -67,7 +60,7 @@ namespace MongoSharp.TreeNodeTag
         }
         public MongoConnectionInfo MongoConnectionInfo { get; set; }
 
-        override public object GetData()
+        public override object GetData()
         {
             return MongoConnectionInfo;
         }
@@ -75,7 +68,7 @@ namespace MongoSharp.TreeNodeTag
 
     public class ModelNodeTag : TreeNodeTag {
 
-        override public object GetData()
+        public override object GetData()
         {
             return this;
         }

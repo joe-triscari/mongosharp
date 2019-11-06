@@ -134,8 +134,8 @@ namespace MongoSharp
 
         private bool IsBsonMode
         {
-            get { return toolStripLabelEditModeEnabled.Visible; }
-            set { toolStripLabelEditModeEnabled.Visible = value; }
+            get => toolStripLabelEditModeEnabled.Visible;
+            set => toolStripLabelEditModeEnabled.Visible = value;
         }
 
         public void OnSelected()
@@ -237,26 +237,7 @@ namespace MongoSharp
                 model = model.Parent;
 
             EditDocument(model);
-        }
-
-        private void EditDocument(ResultTreeNodeModel model)
-        {
-            var collection = _mongoCollectionInfo.GetMongoCollection();
-            var form = new FormEditJsonDocument();
-            form.UpdateDocument += json =>
-            {
-                var bsonDoc = BsonDocument.Parse(json);
-                var result = collection.Save(bsonDoc, WriteConcern.Acknowledged);
-                if (!result.Ok)
-                    throw new Exception(result.ErrorMessage);
-
-                model.Children = new QueryResultConverter().ConvertBsonDocumentToTreeNodeModels(bsonDoc, model);
-                treeListView1.RefreshObject(model);
-            };
-            form.MongoCollection = collection;
-            form.BsonDocument = model.BsonDocument;
-            form.ShowDialog();
-        }
+        }        
 
         private void toolStripMenuItemEditValue_Click(object sender, EventArgs e)
         {
@@ -266,6 +247,25 @@ namespace MongoSharp
         private void toolStripMenuItemEditDoc_Click(object sender, EventArgs e)
         {
             EditDocument(_currentModel);
-        }        
+        }
+
+        private void EditDocument(ResultTreeNodeModel model)
+        {
+            var collection = _mongoCollectionInfo.GetMongoCollection();
+            var form = new FormEditJsonDocument();
+            form.UpdateDocument += json =>
+                {
+                    var bsonDoc = BsonDocument.Parse(json);
+                    var result = collection.Save(bsonDoc, WriteConcern.Acknowledged);
+                    //if (!result.Ok)
+                    //    throw new Exception(result.ErrorMessage);
+
+                    model.Children = new QueryResultConverter().ConvertBsonDocumentToTreeNodeModels(bsonDoc, model);
+                    treeListView1.RefreshObject(model);
+                };
+            form.MongoCollection = collection;
+            form.BsonDocument = model.BsonDocument;
+            form.ShowDialog();
+        }
     }
 }

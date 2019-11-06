@@ -120,6 +120,7 @@
             this.imageList1.Images.SetKeyName(4, "Icon_294.ico");
             this.imageList1.Images.SetKeyName(5, "key-icon.ico");
             this.imageList1.Images.SetKeyName(6, "collection_no_model.ico");
+            this.imageList1.Images.SetKeyName(7, "collection_no_ns2.ico");
             // 
             // cmsCollectionNode
             // 

@@ -29,10 +29,7 @@ namespace MongoSharp
         /// </summary>
         /// <value></value>
         /// <returns>The <see cref="CustomColorTable"/> used for painting.</returns>
-        public new VS2012ColorTable ColorTable
-        {
-            get { return CustomColorTable; }
-        }
+        public new VS2012ColorTable ColorTable => CustomColorTable;
 
         #region Rendering Improvements (includes fixes for bugs occured when Windows Classic theme is on).
         //*

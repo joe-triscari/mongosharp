@@ -45,8 +45,15 @@
             this.olvColumnValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumnType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.cmsRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemEditDoc = new System.Windows.Forms.ToolStripMenuItem();
+            this.editDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEditValue = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.removeDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeFieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.renameFieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFieldValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.cmsRightClick.SuspendLayout();
@@ -182,24 +189,71 @@
             // cmsRightClick
             // 
             this.cmsRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemEditDoc,
-            this.toolStripMenuItemEditValue});
+            this.toolStripMenuItemEditValue,
+            this.toolStripSeparator2,
+            this.removeFieldToolStripMenuItem,
+            this.renameFieldToolStripMenuItem,
+            this.addFieldValueToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.editDocumentToolStripMenuItem,
+            this.removeDocumentToolStripMenuItem,
+            this.addDocumentToolStripMenuItem});
             this.cmsRightClick.Name = "cmsRightClick";
-            this.cmsRightClick.Size = new System.Drawing.Size(164, 70);
+            this.cmsRightClick.Size = new System.Drawing.Size(177, 192);
             // 
-            // toolStripMenuItemEditDoc
+            // editDocumentToolStripMenuItem
             // 
-            this.toolStripMenuItemEditDoc.Name = "toolStripMenuItemEditDoc";
-            this.toolStripMenuItemEditDoc.Size = new System.Drawing.Size(163, 22);
-            this.toolStripMenuItemEditDoc.Text = "Edit Document";
-            this.toolStripMenuItemEditDoc.Click += new System.EventHandler(this.toolStripMenuItemEditDoc_Click);
+            this.editDocumentToolStripMenuItem.Name = "editDocumentToolStripMenuItem";
+            this.editDocumentToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.editDocumentToolStripMenuItem.Text = "Edit Document";
+            this.editDocumentToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItemEditDoc_Click);
             // 
             // toolStripMenuItemEditValue
             // 
             this.toolStripMenuItemEditValue.Name = "toolStripMenuItemEditValue";
-            this.toolStripMenuItemEditValue.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItemEditValue.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItemEditValue.Text = "Edit Value / Type";
             this.toolStripMenuItemEditValue.Click += new System.EventHandler(this.toolStripMenuItemEditValue_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(173, 6);
+            // 
+            // removeDocumentToolStripMenuItem
+            // 
+            this.removeDocumentToolStripMenuItem.Name = "removeDocumentToolStripMenuItem";
+            this.removeDocumentToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.removeDocumentToolStripMenuItem.Text = "Remove Document";
+            // 
+            // addDocumentToolStripMenuItem
+            // 
+            this.addDocumentToolStripMenuItem.Name = "addDocumentToolStripMenuItem";
+            this.addDocumentToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.addDocumentToolStripMenuItem.Text = "Add Document";
+            // 
+            // removeFieldToolStripMenuItem
+            // 
+            this.removeFieldToolStripMenuItem.Name = "removeFieldToolStripMenuItem";
+            this.removeFieldToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.removeFieldToolStripMenuItem.Text = "Remove Field";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(173, 6);
+            // 
+            // renameFieldToolStripMenuItem
+            // 
+            this.renameFieldToolStripMenuItem.Name = "renameFieldToolStripMenuItem";
+            this.renameFieldToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.renameFieldToolStripMenuItem.Text = "Rename Field";
+            // 
+            // addFieldValueToolStripMenuItem
+            // 
+            this.addFieldValueToolStripMenuItem.Name = "addFieldValueToolStripMenuItem";
+            this.addFieldValueToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.addFieldValueToolStripMenuItem.Text = "Add Field/Value";
             // 
             // UserControlQueryResultsTree
             // 
@@ -235,7 +289,14 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabelEditModeEnabled;
         private System.Windows.Forms.ToolStripButton toolStripButtonEditDocument;
         private System.Windows.Forms.ContextMenuStrip cmsRightClick;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditDoc;
+        private System.Windows.Forms.ToolStripMenuItem editDocumentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditValue;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem removeDocumentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addDocumentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeFieldToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renameFieldToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem addFieldValueToolStripMenuItem;
     }
 }

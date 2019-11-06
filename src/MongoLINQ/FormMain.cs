@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using MongoSharp.Model;
 using WeifenLuo.WinFormsUI.Docking;
+using System.IO;
 
 namespace MongoSharp
 {
@@ -192,7 +193,19 @@ namespace MongoSharp
                 var item = new RibbonButton(file);
                 item.Click += (s, ev) =>
                 {
-                    EditorWindowManager.Open(file);
+                    if (!File.Exists(file))
+                    {
+                        var result = MessageBox.Show("This file no longer exists. Remove it from the recently used list?", "File Does Not Exist", MessageBoxButtons.YesNoCancel);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            Settings.Instance.RecentlyUsed.Remove(file);
+
+                        }
+                    }
+                    else
+                        EditorWindowManager.Open(file);
+
                     UpdateRecentFiles();
                 };
                 ribbonButtonRecent.DropDownItems.Add(item);

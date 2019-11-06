@@ -9,6 +9,9 @@ namespace MongoSharp.Model
         public static bool IsSimpleType(
             this Type type)
         {
+            if (type == null)
+                return false;
+
             if (type.IsSubclassOf(typeof(BsonValue)) && type != typeof(BsonDocument))
                 return true;
 

@@ -47,12 +47,12 @@ namespace MongoSharp
                     }
                     else if (el.Value.IsBsonDocument || el.Value.IsBsonArray)
                     {
-                        var placeHoderDataTable = new CustomDataTable
+                        var placeHolderDataTable = new CustomDataTable
                                                 {
                                                     IsLoaded = false,
                                                     OriginalObject = el.Value.IsBsonDocument ? el.Value.AsBsonDocument : (object)el.Value.AsBsonArray
                                                 };                        
-                        dataRow[propName] = placeHoderDataTable;
+                        dataRow[propName] = placeHolderDataTable;
                     }
                     else
                     {
@@ -103,10 +103,8 @@ namespace MongoSharp
                     }
                     else if (table.Columns[propName].DataType == typeof(CustomDataTable))
                     {
-                        var placeHoderDataTable = new CustomDataTable();
-                        placeHoderDataTable.IsLoaded = false;
-                        placeHoderDataTable.OriginalObject = obj;
-                        dataRow[propName] = placeHoderDataTable;
+                        var placeHolderDataTable = new CustomDataTable {IsLoaded = false, OriginalObject = obj};
+                        dataRow[propName] = placeHolderDataTable;
                     }
                     else
                     {
@@ -182,7 +180,7 @@ namespace MongoSharp
 
         private ResultTreeNodeModel ConvertToTreeNodeModel(object obj, PropertyData propertyData)
         {
-            
+
             if (propertyData.GetUnderLyingType().IsSimpleType() || obj == null)
             {
                 return new ResultTreeNodeModel
@@ -192,38 +190,35 @@ namespace MongoSharp
                             Type = propertyData.FriendlyTypeName
                         };
             }
+
+            if (obj is IEnumerable enumerable && !(enumerable is BsonDocument))
+            {
+                int count = enumerable.Cast<object>().Count();
+
+                var rowDoc = new ResultTreeNodeModel
+                {
+                    Name = propertyData.Name + "[" + count + "]",
+                    Value = null,
+                    Type = propertyData.FriendlyTypeName
+                };
+                var innerQueryResult = QueryResult.ToQueryResult(obj);
+                rowDoc.Children.AddRange(ConvertToTreeNodeModels(innerQueryResult));
+                return rowDoc;
+            }
             else
             {
-                if (obj is IEnumerable && !(obj is BsonDocument))
+                var rowDoc = new ResultTreeNodeModel
                 {
-                    var enumurable = obj as IEnumerable;
-                    int count = enumurable.Cast<object>().Count();
-
-                    var rowDoc = new ResultTreeNodeModel
-                                {
-                                    Name = propertyData.Name + "[" + count + "]",
-                                    Value = null,
-                                    Type = propertyData.FriendlyTypeName
-                                };
-                    var innerQueryResult = QueryResult.ToQueryResult(obj);
-                    rowDoc.Children.AddRange(ConvertToTreeNodeModels(innerQueryResult));
-                    return rowDoc;
-                }
-                else
+                    Name = propertyData.Name + " {..}",
+                    Value = null,
+                    Type = propertyData.FriendlyTypeName
+                };
+                var innerQueryResult = QueryResult.ToQueryResult(obj);
+                foreach (List<Object> rowResults in innerQueryResult.Results)
                 {
-                    var rowDoc = new ResultTreeNodeModel
-                                {
-                                    Name = propertyData.Name + " {..}",
-                                    Value = null,
-                                    Type = propertyData.FriendlyTypeName
-                                };
-                    var innerQueryResult = QueryResult.ToQueryResult(obj);
-                    foreach (List<Object> rowResults in innerQueryResult.Results)
-                    {
-                        rowDoc.Children.AddRange(ConvertToTreeNodeModels(rowResults, innerQueryResult.Properties));
-                    }
-                    return rowDoc;
+                    rowDoc.Children.AddRange(ConvertToTreeNodeModels(rowResults, innerQueryResult.Properties));
                 }
+                return rowDoc;
             }
         }
 
@@ -245,7 +240,7 @@ namespace MongoSharp
                             BsonType = bsonValue.BsonType,
                             IsValue = true,
                             Parent = parentNode,
-                            BsonUpdateQuery = String.Format("{0}.{1}", parentNode.BsonUpdateQuery, index)
+                            BsonUpdateQuery = $"{parentNode.BsonUpdateQuery}.{index}"
                         };
 
             if(bsonValue.IsBsonNull)
@@ -310,7 +305,7 @@ namespace MongoSharp
                     int row = 0;
                     foreach(BsonValue bsonValue in bsonArray)
                     {
-                        node.Children.Add(ConvertBsonValueToTreeNodeModel(bsonValue, node, "(" + (row) + ")", row));
+                        node.Children.Add(ConvertBsonValueToTreeNodeModel(bsonValue, node, "(" + row + ")", row));
                         row += 1;
                     }
                     list.Add(node);

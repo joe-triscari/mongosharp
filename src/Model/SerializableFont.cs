@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using System.Drawing;
 using System.ComponentModel;
 
@@ -26,21 +22,13 @@ namespace MongoSharp.Model
         [XmlElement("FontValue")]
         public string SerializeFontAttribute
         {
-            get
-            {
-                return FontXmlConverter.ConvertToString(FontValue);
-            }
-            set
-            {
-                FontValue = FontXmlConverter.ConvertToFont(value);
-            }
+            get => FontXmlConverter.ConvertToString(FontValue);
+            set => FontValue = FontXmlConverter.ConvertToFont(value);
         }
 
         public static implicit operator Font(SerializableFont serializeableFont)
         {
-            if (serializeableFont == null)
-                return null;
-            return serializeableFont.FontValue;
+            return serializeableFont?.FontValue;
         }
 
         public static implicit operator SerializableFont(Font font)

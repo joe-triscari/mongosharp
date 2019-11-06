@@ -23,7 +23,7 @@ namespace MongoSharp.Model
         public List<ResultTreeNodeModel> Children { get; set; }
         public BsonDocument BsonDocument { get; set; }
 
-        public bool IsRoot { get { return Parent == null; } }
+        public bool IsRoot => Parent == null;
 
         public string BsonUpdateQuery { get; set; }
     }

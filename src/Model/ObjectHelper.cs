@@ -6,10 +6,9 @@ using System.Reflection;
 
 namespace MongoSharp.Model
 {
-    static public class ObjectHelper
+    public static class ObjectHelper
     {
-
-        static public List<PropertyData> ToPropertyPaths(Type theType)
+        public static List<PropertyData> ToPropertyPaths(Type theType)
         {
             var propPaths = new List<PropertyData>();
 
@@ -18,7 +17,7 @@ namespace MongoSharp.Model
             return propPaths;
         }
 
-        static private void ToPropertyPaths(Type theType, string parentObject, ref List<PropertyData> propertyPaths)
+        private static void ToPropertyPaths(Type theType, string parentObject, ref List<PropertyData> propertyPaths)
         {
             var collections = new List<Type> { typeof(IEnumerable<>), typeof(IEnumerable) };
 
@@ -26,7 +25,17 @@ namespace MongoSharp.Model
             foreach (var prop in props)
             {
                 var propType = prop.PropertyType;
-                if (propType.IsSimpleType() || propType.Name == "ObjectId" || propType.Name.StartsWith("Bson"))
+                if (propType == theType)
+                {
+                    propertyPaths.Add(!String.IsNullOrWhiteSpace(parentObject)
+                                          ? new PropertyData
+                                          {
+                                              Path = parentObject + "." + prop.Name,
+                                              Type = propType
+                                          }
+                                          : new PropertyData { Path = prop.Name, Type = propType });
+                }
+                else if (propType.IsSimpleType() || propType.Name == "ObjectId" || propType.Name.StartsWith("Bson"))
                 {
                     propertyPaths.Add(!String.IsNullOrWhiteSpace(parentObject)
                                           ? new PropertyData
@@ -38,7 +47,7 @@ namespace MongoSharp.Model
                 }
                 else if (propType != typeof(string) && propType.GetInterfaces().Any(i => collections.Any(c => i == c)))
                 {
-                    propType = propType.GetElementType();
+                    propType = propType.GetElementType() ?? propType;
                     if (propType.IsSimpleType() || propType.Name == "ObjectId" || propType.Name.StartsWith("Bson"))
                     {
                         propertyPaths.Add(!String.IsNullOrWhiteSpace(parentObject)

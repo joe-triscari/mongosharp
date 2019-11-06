@@ -43,9 +43,13 @@
             this.scintillaCode = new ScintillaNET.Scintilla();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabelNamespace = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripTextBoxNamespace = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scintillaCode)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -119,7 +123,7 @@
             this.toolStripButtonValidate.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonValidate.Image")));
             this.toolStripButtonValidate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonValidate.Name = "toolStripButtonValidate";
-            this.toolStripButtonValidate.Size = new System.Drawing.Size(69, 22);
+            this.toolStripButtonValidate.Size = new System.Drawing.Size(68, 22);
             this.toolStripButtonValidate.Text = "Validate";
             this.toolStripButtonValidate.Click += new System.EventHandler(this.toolStripButtonValidate_Click);
             // 
@@ -136,9 +140,9 @@
             // 
             this.scintillaCode.Caret.Style = ScintillaNET.CaretStyle.Invisible;
             this.scintillaCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scintillaCode.Location = new System.Drawing.Point(0, 25);
+            this.scintillaCode.Location = new System.Drawing.Point(0, 50);
             this.scintillaCode.Name = "scintillaCode";
-            this.scintillaCode.Size = new System.Drawing.Size(830, 495);
+            this.scintillaCode.Size = new System.Drawing.Size(830, 470);
             this.scintillaCode.TabIndex = 1;
             this.scintillaCode.Click += new System.EventHandler(this.scintillaCode_Click);
             // 
@@ -158,6 +162,28 @@
             this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabelStatus.Text = "Ready";
             // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabelNamespace,
+            this.toolStripTextBoxNamespace});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 25);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(830, 25);
+            this.toolStrip2.TabIndex = 5;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // toolStripLabelNamespace
+            // 
+            this.toolStripLabelNamespace.Name = "toolStripLabelNamespace";
+            this.toolStripLabelNamespace.Size = new System.Drawing.Size(72, 22);
+            this.toolStripLabelNamespace.Text = "Namespace:";
+            // 
+            // toolStripTextBoxNamespace
+            // 
+            this.toolStripTextBoxNamespace.Name = "toolStripTextBoxNamespace";
+            this.toolStripTextBoxNamespace.Size = new System.Drawing.Size(300, 25);
+            // 
             // FormSchema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -165,6 +191,7 @@
             this.ClientSize = new System.Drawing.Size(830, 520);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.scintillaCode);
+            this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
             this.Name = "FormSchema";
             this.Text = "Model";
@@ -174,6 +201,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.scintillaCode)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,5 +224,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton toolStripButtonValidate;
         private System.Windows.Forms.ToolStripButton toolStripButtonSaveAndClose;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelNamespace;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxNamespace;
     }
 }

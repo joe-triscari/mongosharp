@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace MongoSharp
@@ -30,10 +29,7 @@ namespace MongoSharp
                 }
 
             }
-            get
-            {
-                return listBoxSchema.Items.Cast<string>().ToArray();
-            }
+            get => listBoxSchema.Items.Cast<string>().ToArray();
         }
 
         public void Clear()

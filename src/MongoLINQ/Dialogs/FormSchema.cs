@@ -23,17 +23,27 @@ namespace MongoSharp
 
         private void FormSchema_Load(object sender, EventArgs e)
         {
-            this.Icon = Properties.Resources.CSFile; 
-            if (CollectionInfo.Models != null && CollectionInfo.Models.Count > 0)
+            this.Icon = Properties.Resources.CSFile;
+
+            if (String.IsNullOrWhiteSpace(CollectionInfo.Namespace))
             {
-                scintillaCode.Text = CollectionInfo.Models[0].ModelCode;
-                ValidateModel(CollectionInfo.Models[0].RootClassName, false);
-            }                                     
+                toolStripTextBoxNamespace.Text = CollectionInfo.DefaultNamespace;
+            }
+            else
+            {
+                toolStripTextBoxNamespace.Text = CollectionInfo.Namespace;
+            }
+
+            if (CollectionInfo.Models != null && CollectionInfo.Models.Count > 0)
+            {                
+                scintillaCode.Text = CollectionInfo.Models[0].ModelCode;               
+                ValidateModel(CollectionInfo.Models[0].RootClassName, toolStripTextBoxNamespace.Text, false);
+            }            
         }
 
         public MongoCollectionInfo CollectionInfo { get; set; }
 
-        private bool ValidateModel(string selectedRootClass, bool displayError)
+        private bool ValidateModel(string selectedRootClass, string @namespace, bool displayError)
         {
             string code = scintillaCode.Text;
 
@@ -43,8 +53,18 @@ namespace MongoSharp
             {
                 if (String.IsNullOrWhiteSpace(code))
                     throw new Exception("Please paste your C# model code into the editor or use the Auto Generate option.");
+                if (String.IsNullOrWhiteSpace(@namespace))
+                    throw new Exception("Please enter a namespace.");
 
-                var types = new MongoDynamicCodeRunner().CompileModelCode(code);
+                @namespace = @namespace.Trim();
+
+                foreach (var connInfo in Settings.Instance.Connections)
+                    foreach(var dbInfo in connInfo.Databases)
+                        foreach(var collectionInfo in dbInfo.Collections)
+                            if (collectionInfo.Path != CollectionInfo.Path && collectionInfo.Namespace == @namespace)
+                                throw new Exception("Namespace already used in another collection. Please select a new one.");
+
+                var types = new MongoDynamicCodeRunner().CompileModelCode(code, @namespace);
                 if (!types.Any())
                     throw new Exception("No model classes are defined.");
 
@@ -118,7 +138,7 @@ namespace MongoSharp
         private void toolStripButtonValidate_Click(object sender, EventArgs e)
         {
             var selectedRootClass = toolStripComboBoxRootClass.SelectedItem as string;
-            if (ValidateModel(selectedRootClass, true))
+            if (ValidateModel(selectedRootClass, toolStripTextBoxNamespace.Text, true))
                 MessageBox.Show("Success!", "Model Validation");
         }
 
@@ -135,15 +155,16 @@ namespace MongoSharp
             else
             {
                 var selectedRootClass = toolStripComboBoxRootClass.SelectedItem as string;
-                if (ValidateModel(selectedRootClass, true))
+                if (ValidateModel(selectedRootClass, toolStripTextBoxNamespace.Text, true))
                 {
                     CollectionInfo.Models.Clear();
                     CollectionInfo.Models.Add(new MongoCollectionModelInfo
                     {
                         Collection = CollectionInfo,
                         RootClassName = toolStripComboBoxRootClass.SelectedItem as string,
-                        ModelCode = scintillaCode.Text
+                        ModelCode = scintillaCode.Text,                        
                     });
+                    CollectionInfo.Namespace = toolStripTextBoxNamespace.Text;
                     Settings.Instance.Save();
                     WasUpdated = true;
                     Close();

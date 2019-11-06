@@ -21,7 +21,7 @@ namespace MongoSharp.Model
 
         private void ToCSharpClassDeclarations(BsonDocument bsonDocument, string docName, ref List<string> docs)
         {
-            string classDef = String.Format("[BsonIgnoreExtraElements]\npublic class {0}\n{{\n", docName);
+            string classDef = $"[BsonIgnoreExtraElements]\npublic class {docName}\n{{\n";
 
             foreach (BsonElement element in bsonDocument.Elements)
             {
@@ -30,7 +30,7 @@ namespace MongoSharp.Model
                     var innerDoc = element.Value.AsBsonDocument;                    
                     if (innerDoc != null && innerDoc.Elements.Any())
                     {
-                        classDef += String.Format("\tpublic {0} {1} {{ get; set; }}\n", GetDocName(element.Name), element.Name);
+                        classDef += $"\tpublic {GetDocName(element.Name)} {element.Name} {{ get; set; }}\n";
                         ToCSharpClassDeclarations(element.Value.AsBsonDocument, GetDocName(element.Name), ref docs);
                     }
                 }
@@ -42,24 +42,24 @@ namespace MongoSharp.Model
                         var first = ar.First();
                         if(!first.IsBsonDocument)
                         {
-                            classDef += String.Format("\tpublic {0} [] {1} {{ get; set; }}\n", ToCSharpType(first), element.Name);
+                            classDef += $"\tpublic {ToCSharpType(first)} [] {element.Name} {{ get; set; }}\n";
                         }
                         else
                         {
                             var document = first.AsBsonDocument;
 
-                            classDef += String.Format("\tpublic {0} [] {1} {{ get; set; }}\n", GetDocName(element.Name), element.Name);
+                            classDef += $"\tpublic {GetDocName(element.Name)} [] {element.Name} {{ get; set; }}\n";
                             ToCSharpClassDeclarations(document, GetDocName(element.Name), ref docs);
                         }
                     }
                     else
                     {   // No elements, can't determine type.
-                        classDef += String.Format("\tpublic BsonValue [] {0} {{ get; set; }}\n", element.Name);
+                        classDef += $"\tpublic BsonValue [] {element.Name} {{ get; set; }}\n";
                     }
                 }
                 else if (element.Name != "ExtensionData")
                 {
-                    classDef += String.Format("\tpublic {0} {1} {{ get; set; }}\n", ToCSharpType(element.Value), element.Name);
+                    classDef += $"\tpublic {ToCSharpType(element.Value)} {element.Name} {{ get; set; }}\n";
                 }
             }
 
@@ -88,7 +88,7 @@ namespace MongoSharp.Model
                 return "ObjectId";
             if (bsonValue.IsBoolean)
                 return "bool";
-            if (bsonValue.IsBsonDateTime || bsonValue.IsBsonTimestamp || bsonValue.IsDateTime)
+            if (bsonValue.IsBsonDateTime || bsonValue.IsBsonTimestamp || bsonValue.IsValidDateTime)
                 return "DateTime";
             if (bsonValue.IsDouble)
                 return "double";
@@ -106,6 +106,7 @@ namespace MongoSharp.Model
 
         public string ToCSharpType(JTokenType jTokenType)
         {
+
             if (jTokenType == JTokenType.Boolean)
                 return "bool";
             if (jTokenType == JTokenType.Date)

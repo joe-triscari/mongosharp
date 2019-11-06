@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using MongoDB;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -99,7 +93,7 @@ namespace MongoSharp
                     string json = File.ReadAllText(file);
                     if(!String.IsNullOrWhiteSpace(json))
                     {
-                        var bsonDocs = ConvertToBsonDocuments(ParseJson(json), cbxStopOnError.Checked && !_isValidating, out success, out failed);
+                        var bsonDocs = ConvertToBsonDocuments(ParseJson(json, checkBoxIsArray.Checked), cbxStopOnError.Checked && !_isValidating, out success, out failed);
                         total = bsonDocs.Count;
                         if (total > 0 && !_isValidating)
                         {
@@ -112,8 +106,7 @@ namespace MongoSharp
                     if(!_isValidating)
                     {
                         MessageBox.Show(
-                        String.Format("{0} document(s) successfully imported.\r\n{1} document(s) failed to import.\r\n{2} document(s) were skipped.",
-                                            success, failed, total - success - failed), "Import Complete");
+                            $"{success} document(s) successfully imported.\r\n{failed} document(s) failed to import.\r\n{total - success - failed} document(s) were skipped.", "Import Complete");
                     }
                     else
                         MessageBox.Show("Valid!", "Validation");
@@ -159,8 +152,15 @@ namespace MongoSharp
             return bsonDocs;
         }
 
-        private List<string> ParseJson(string json)
+        private List<string> ParseJson(string json, bool isArray)
         {
+            if (isArray)
+            {
+                var bsonArray = BsonSerializer.Deserialize<BsonArray>(json);
+                var docs = bsonArray.Values.ToList().ConvertAll(x => x.ToString());
+                return docs;
+            }
+
             var jsonDocs = new List<string>();
             string doc="";
             int openBracketCount=0;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 
 namespace MongoSharp.Model
 {
@@ -82,10 +77,10 @@ namespace MongoSharp.Model
                         value = BsonInt64.Create(o);
                         break;
                     case BsonType.MaxKey:
-                        value = BsonMaxKey.Create(o);
+                        value = BsonValue.Create(o);
                         break;
                     case BsonType.MinKey:
-                        value = BsonMinKey.Create(o);
+                        value = BsonValue.Create(o);
                         break;
                 }
             }

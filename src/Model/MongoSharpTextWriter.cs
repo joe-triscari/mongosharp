@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Text;
-using MongoSharp.Model.Interface;
 
 namespace MongoSharp.Model
 {
@@ -12,21 +11,15 @@ namespace MongoSharp.Model
             _backgroundWorker = bgw;
         }
 
-        public override Encoding Encoding
-        {
-            get { return System.Text.UTF8Encoding.Unicode; }
-        }
+        public override Encoding Encoding => Encoding.Unicode;
 
         public override void Write(char value)
         {
-            if (_backgroundWorker != null)
-                _backgroundWorker.ReportProgress(0, value);
+            _backgroundWorker?.ReportProgress(0, value);
         }
 
         public override void Write(char[] buffer, int index, int count)
         {
-            if (buffer == null)
-                return;
             if (index < 0)
                 return;
             if (count < 0)
@@ -35,8 +28,7 @@ namespace MongoSharp.Model
                 return;
 
             string value = new string(buffer).Substring(index, count);
-            if (_backgroundWorker != null)
-                _backgroundWorker.ReportProgress(0, value);
+            _backgroundWorker?.ReportProgress(0, value);
         }
 
         public override void WriteLine(string value)
@@ -47,8 +39,7 @@ namespace MongoSharp.Model
             }
             else
             {
-                if (_backgroundWorker != null)
-                    _backgroundWorker.ReportProgress(0, value);
+                _backgroundWorker?.ReportProgress(0, value);
             }
         }
     }

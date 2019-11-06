@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Forms;
 using MongoSharp.Model.Interface;
 
 namespace MongoSharp
@@ -18,9 +13,9 @@ namespace MongoSharp
 
         }
 
-        static private WindowManager _instance;
+        private static WindowManager _instance;
 
-        static public WindowManager Instance
+        public static WindowManager Instance
         {
             get
             {

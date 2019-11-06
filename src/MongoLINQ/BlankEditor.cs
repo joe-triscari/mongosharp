@@ -15,7 +15,7 @@ namespace MongoSharp
 
         public string Contents
         {
-            set { scintilla1.Text = value; }
+            set => scintilla1.Text = value;
         }
 
         private void closeToolStripMenuItem_Click(object sender, System.EventArgs e)

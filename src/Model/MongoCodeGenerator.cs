@@ -16,7 +16,7 @@ namespace MongoSharp.Model
             var types = new MongoDynamicCodeRunner().CompileModelCode(model.ModelCode);
             var rootType = types.Find(t => t.Name == model.RootClassName);
             if(rootType == null)
-                throw new Exception(String.Format("{0} class not found in Model.", model.RootClassName));
+                throw new Exception($"{model.RootClassName} class not found in Model.");
 
             List<PropertyData> properties = ObjectHelper.ToPropertyPaths(rootType);
 
@@ -32,7 +32,7 @@ namespace MongoSharp.Model
             var types = new MongoDynamicCodeRunner().CompileModelCode(model.ModelCode);
             var rootType = types.Find(t => t.Name == model.RootClassName);
             if (rootType == null)
-                throw new Exception(String.Format("{0} class not found in Model.", model.RootClassName));
+                throw new Exception($"{model.RootClassName} class not found in Model.");
 
             List<PropertyData> properties = ObjectHelper.ToPropertyPaths(rootType);
 
@@ -51,7 +51,8 @@ namespace MongoSharp.Model
             var collection = databaseInfo.GetCollection(collectionName);
             var doc = collection.FindOne();
             if (doc == null)
-                throw new Exception(String.Format("Collection '{0}' is empty. Unable to determine schema from first document", collectionName));
+                throw new Exception(
+                    $"Collection '{collectionName}' is empty. Unable to determine schema from first document");
 
             var schemaInfo = MongoCollectionSchemaStore.GetSchemaDocument(databaseInfo, collectionName);
             var classes = new BsonDocumentConverter().ToCSharpClassDeclarations(schemaInfo.SchemaDocument);
@@ -80,7 +81,8 @@ namespace MongoSharp.Model
             var collection = databaseInfo.GetCollection(collectionName);
             var doc = collection.FindOne();
             if (doc == null)
-                throw new Exception(String.Format("Collection '{0}' is empty. Unable to determine schema from first document", collectionName));
+                throw new Exception(
+                    $"Collection '{collectionName}' is empty. Unable to determine schema from first document");
 
             var schemaInfo = MongoCollectionSchemaStore.GetSchemaDocument(databaseInfo, collectionName);
             var classes = new BsonDocumentConverter().ToCSharpClassDeclarations(schemaInfo.SchemaDocument);
@@ -100,6 +102,7 @@ namespace MongoSharp.Model
         public string GenerateMongoCode(MongoDatabaseInfo databaseInfo, string collectionName, string linqQuery, string mode, out int injectedCodeStartPos)
         {
             string classSyntax = GetModelCode(databaseInfo, collectionName);
+            var collectionInfo = databaseInfo.GetCollectionInfo(collectionName);
             int additionalLength = 0;
             injectedCodeStartPos = 0;
 
@@ -122,12 +125,26 @@ namespace MongoSharp.Model
             if (mode != MongoSharpQueryMode.Json)
             {
                 sb.AppendLine("\t#region Model");
-                sb.AppendLine(AddTabsToEachLine(classSyntax, 1, false, "\n"));
+                foreach (var conn in Settings.Instance.Connections)
+                {
+                    foreach (var dbInfo in conn.Databases)
+                    {
+                        foreach (var collInfo in dbInfo.Collections)
+                        {
+                            if (collInfo.HasModel && !String.IsNullOrWhiteSpace(collInfo.Namespace))
+                            {
+                                sb.AppendFormat("\tnamespace {0}\n\t{{\n", collInfo.Namespace);
+                                sb.AppendLine(AddTabsToEachLine(GetModelCode(dbInfo, collInfo.Name), 2, false, "\n"));
+                                sb.AppendLine("}");
+                            }
+                        }
+                    }
+                }
                 sb.AppendLine("\t#endregion");
                 sb.AppendLine("");
             }
 
-            string modelType = mode == MongoSharpQueryMode.Json ? "BsonDocument" : "Doc0";
+            string modelType = mode == MongoSharpQueryMode.Json ? "BsonDocument" : collectionInfo.Namespace + "." + collectionInfo.Models[0].RootClassName;
 
             sb.AppendLine("\tpublic class QueryExecutor");
             sb.AppendLine("\t{");
@@ -149,12 +166,12 @@ namespace MongoSharp.Model
             sb.AppendLine("\t\t\t#region Injected Code");
             if (mode == MongoSharpQueryMode.CSharpStatements)
             {
-                injectedCodeStartPos = sb.ToString().Length + additionalLength;
+                injectedCodeStartPos = sb.Length + additionalLength;
                 sb.AppendLine(AddTabsToEachLine(linqQuery, 3, false));
             }
             else if(mode == MongoSharpQueryMode.CSharpQuery)
             {
-                injectedCodeStartPos = sb.ToString().Length + "\t\t\tDump(".Length + additionalLength;
+                injectedCodeStartPos = sb.Length + "\t\t\tDump(".Length + additionalLength;
                 sb.AppendFormat("\t\t\tDump({0});\r\n\r\n", AddTabsToEachLine(linqQuery,4, true));
             }
             else if(mode == MongoSharpQueryMode.Json)
@@ -181,6 +198,12 @@ namespace MongoSharp.Model
             sb.AppendLine("\t\t{");
             sb.AppendLine("\t\t\tSystem.Console.WriteLine(output);");
             sb.AppendLine("\t\t}");
+
+            sb.AppendLine("\t\tstatic MongoCollection<T> GetCollection<T>() where T : new()");
+            sb.AppendLine("\t\t{");
+            sb.AppendLine("\t\t\treturn Helper.GetCollection<T>();");
+            sb.AppendLine("\t\t}");
+
             sb.AppendLine("\t}");
             sb.AppendLine("}");
 

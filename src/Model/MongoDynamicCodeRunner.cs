@@ -19,13 +19,15 @@ namespace MongoSharp.Model
             var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
             var compilation = CSharpCompilation.Create("output", options: options)
                 .AddSyntaxTrees(syntaxTree)
-                .AddReferences(new MetadataFileReference(typeof(object).Assembly.Location),
-                               new MetadataFileReference(typeof(MongoSharpTextWriter).Assembly.Location),
-                               new MetadataFileReference(typeof(IEnumerable<int>).Assembly.Location),
-                               new MetadataFileReference(typeof(IQueryable).Assembly.Location),
-                               new MetadataFileReference(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
-                               new MetadataFileReference(typeof(MongoDB.Driver.MongoCollection).Assembly.Location));
-
+                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
+                               );
+        
             using (var stream = new MemoryStream())
             {
                 EmitResult result = compilation.Emit(stream);
@@ -77,9 +79,8 @@ namespace MongoSharp.Model
 
         private string GetErrorText(Diagnostic d, int lineNbr)
         {
-            return String.Format("(Line {0},{1}) {2} : {3}", (d.Location.GetLineSpan().StartLinePosition.Line - lineNbr) + 1,
-                d.Location.GetLineSpan().StartLinePosition.Character,
-                d.Id, d.GetMessage());
+            return
+                $"(Line {(d.Location.GetLineSpan().StartLinePosition.Line - lineNbr) + 1},{d.Location.GetLineSpan().StartLinePosition.Character}) {d.Id} : {d.GetMessage()}";
         }
 
         public List<Type> CompileModelCode(string code)
@@ -105,12 +106,14 @@ namespace MongoSharp.Model
             var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
             var compilation = CSharpCompilation.Create("output", options: options)
                 .AddSyntaxTrees(syntaxTree)
-                .AddReferences(new MetadataFileReference(typeof(object).Assembly.Location),
-                               new MetadataFileReference(typeof(MongoSharpTextWriter).Assembly.Location),
-                               new MetadataFileReference(typeof(IEnumerable<int>).Assembly.Location),
-                               new MetadataFileReference(typeof(IQueryable).Assembly.Location),
-                               new MetadataFileReference(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
-                               new MetadataFileReference(typeof(MongoDB.Driver.MongoCollection).Assembly.Location));
+                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
+                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
+                               );
 
             using (var stream = new MemoryStream())
             {

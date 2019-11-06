@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MongoSharp.Model
+﻿namespace MongoSharp.Model
 {
-    static public class MongoSharpQueryMode
+    public static class MongoSharpQueryMode
     {
-        static public readonly string CSharpStatements = "C# Statements";
-        static public readonly string CSharpQuery = "C# Query";
-        static public readonly string Json = "JSON";
+        public static readonly string CSharpStatements = "C# Statements";
+        public static readonly string CSharpQuery = "C# Query";
+        public static readonly string Json = "JSON";
     }
 }
