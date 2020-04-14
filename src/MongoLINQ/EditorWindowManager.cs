@@ -25,7 +25,7 @@ namespace MongoSharp
         {
             var doc = CreateNewDocument();
             doc.IsLoading = true;
-            if (!String.IsNullOrWhiteSpace(collectionName))
+            if (!string.IsNullOrWhiteSpace(collectionName))
                 doc.EditorText = "(from x in collection.AsQueryable()" + Environment.NewLine + "select x).Take(200)";
             doc.IsNew = true;
             doc.SetCollection(connectionName, databaseName, collectionName);

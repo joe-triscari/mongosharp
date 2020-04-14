@@ -36,7 +36,7 @@ namespace MongoSharp
             if (tabControlMain.SelectedIndex == 0)
             {
                 string json = txtJson.Text;
-                if(!String.IsNullOrWhiteSpace(json))
+                if(!string.IsNullOrWhiteSpace(json))
                 {
                     bool isConverting = true;
 
@@ -79,7 +79,7 @@ namespace MongoSharp
             else
             {
                 string file = txtBoxImportFile.Text;
-                if(String.IsNullOrWhiteSpace(file) || !File.Exists(file))
+                if(string.IsNullOrWhiteSpace(file) || !File.Exists(file))
                 {
                     MessageBox.Show("Please select a valid file.", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -91,7 +91,7 @@ namespace MongoSharp
                     Cursor.Current = Cursors.WaitCursor;
 
                     string json = File.ReadAllText(file);
-                    if(!String.IsNullOrWhiteSpace(json))
+                    if(!string.IsNullOrWhiteSpace(json))
                     {
                         var bsonDocs = ConvertToBsonDocuments(ParseJson(json, checkBoxIsArray.Checked), cbxStopOnError.Checked && !_isValidating, out success, out failed);
                         total = bsonDocs.Count;

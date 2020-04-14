@@ -308,7 +308,7 @@ namespace MongoSharp
         private void toolStripButtonViewCode_Click(object sender, EventArgs e)
         {
             string linqQuery = GetQuery();
-            if (String.IsNullOrWhiteSpace(linqQuery))
+            if (string.IsNullOrWhiteSpace(linqQuery))
                 return;
 
             if (toolStripComboBoxConnection.SelectedItem is MongoConnectionInfo connection)
@@ -349,7 +349,7 @@ namespace MongoSharp
         private void toolStripButtonFormatCode_Click(object sender, EventArgs e)
         {
             string linqQuery = GetQuery();
-            if (String.IsNullOrWhiteSpace(linqQuery))
+            if (string.IsNullOrWhiteSpace(linqQuery))
                 return;
 
             try
@@ -653,7 +653,7 @@ namespace MongoSharp
         private string GetQuery()
         {
             string linqQuery = scintillaLinqCode.Selection.Text;
-            if (String.IsNullOrWhiteSpace(linqQuery))
+            if (string.IsNullOrWhiteSpace(linqQuery))
             {
                 linqQuery = scintillaLinqCode.Text;
             }

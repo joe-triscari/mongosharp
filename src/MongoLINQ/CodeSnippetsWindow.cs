@@ -92,7 +92,7 @@ namespace MongoSharp
             var codeColumn = (DataGridViewTextBoxCell)dataGridView1.Rows[row.Index].Cells[2];
             string code = codeColumn.Value.ToString();
 
-            if (OnInsertCode != null && !String.IsNullOrEmpty(code))
+            if (OnInsertCode != null && !string.IsNullOrEmpty(code))
                 OnInsertCode(code);
         }
     }

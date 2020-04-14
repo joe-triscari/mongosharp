@@ -14,10 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoSharp", "src\MongoLINQ\MongoSharp.csproj", "{F8D9BF33-1A60-470C-A368-B703CD12F358}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5435924A-EEE1-4070-9408-79835CA19331}"
-	ProjectSection(SolutionItems) = preProject
-		Backlog.txt = Backlog.txt
-		Issues.txt = Issues.txt
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

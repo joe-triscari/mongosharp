@@ -66,7 +66,7 @@ namespace MongoSharp
         void treeListView1_CellToolTipShowing(object sender, BrightIdeasSoftware.ToolTipShowingEventArgs e)
         {
             var x = e.Item.RowObject as ResultTreeNodeModel;
-            if(x != null && x.IsValue && !String.IsNullOrWhiteSpace(x.BsonUpdateQuery))
+            if(x != null && x.IsValue && !string.IsNullOrWhiteSpace(x.BsonUpdateQuery))
             {
                 e.Text = x.BsonUpdateQuery;
             }
@@ -198,10 +198,9 @@ namespace MongoSharp
 
         private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(toolStripTextBox1.Text))
-                treeListView1.ModelFilter = null;
-            else
-                treeListView1.ModelFilter = BrightIdeasSoftware.TextMatchFilter.Contains(treeListView1, toolStripTextBox1.Text);
+            treeListView1.ModelFilter = string.IsNullOrEmpty(toolStripTextBox1.Text) 
+                ? null 
+                : BrightIdeasSoftware.TextMatchFilter.Contains(treeListView1, toolStripTextBox1.Text);
         }
 
         private void expandSelectedToolStripMenuItem_Click(object sender, EventArgs e)

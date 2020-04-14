@@ -28,7 +28,7 @@ namespace MongoSharp
 
         private void textBoxTableName_TextChanged(object sender, EventArgs e)
         {
-            buttonOk.Enabled = !String.IsNullOrWhiteSpace(textBoxTableName.Text);
+            buttonOk.Enabled = !string.IsNullOrWhiteSpace(textBoxTableName.Text);
         }
     }
 }

@@ -89,12 +89,12 @@ namespace MongoSharp
                 table.Columns.Add(column);
             }
 
-            foreach (List<Object> resultRow in queryResult.Results)
+            foreach (List<object> resultRow in queryResult.Results)
             {
                 DataRow dataRow = table.NewRow();
                 int columnIndex = 0;
 
-                foreach (Object obj in resultRow)
+                foreach (object obj in resultRow)
                 {                    
                     string propName = queryResult.Properties[columnIndex++].Name;
                     if(obj == null)
@@ -145,7 +145,7 @@ namespace MongoSharp
             }
             else
             {
-                foreach (List<Object> rowResults in queryResult.Results)
+                foreach (List<object> rowResults in queryResult.Results)
                 {
                     var node = new ResultTreeNodeModel
                                 {
@@ -165,12 +165,12 @@ namespace MongoSharp
             return nodes;
         }
 
-        private List<ResultTreeNodeModel> ConvertToTreeNodeModels(List<Object> rowResult, List<PropertyData> properties)
+        private List<ResultTreeNodeModel> ConvertToTreeNodeModels(List<object> rowResult, List<PropertyData> properties)
         {
             var models = new List<ResultTreeNodeModel>();
             int columnIndex = 0;
 
-            foreach (Object obj in rowResult)
+            foreach (object obj in rowResult)
             {
                 models.Add(ConvertToTreeNodeModel(obj, properties[columnIndex++]));
             }
@@ -214,7 +214,7 @@ namespace MongoSharp
                     Type = propertyData.FriendlyTypeName
                 };
                 var innerQueryResult = QueryResult.ToQueryResult(obj);
-                foreach (List<Object> rowResults in innerQueryResult.Results)
+                foreach (List<object> rowResults in innerQueryResult.Results)
                 {
                     rowDoc.Children.AddRange(ConvertToTreeNodeModels(rowResults, innerQueryResult.Properties));
                 }
