@@ -27,13 +27,13 @@ namespace MongoSharp.Model
 
         public string GetConnectionString(string databaseName)
         {
-            if (String.IsNullOrWhiteSpace(databaseName))
+            if (string.IsNullOrWhiteSpace(databaseName))
             {
-                return String.IsNullOrWhiteSpace(Username) ? $"mongodb://{ServerString}"
+                return string.IsNullOrWhiteSpace(Username) ? $"mongodb://{ServerString}"
                     : $"mongodb://{Username}:{Password}@{ServerString}";
             }            
 
-            return String.IsNullOrWhiteSpace(Username) ? $"mongodb://{ServerString}/{databaseName}"
+            return string.IsNullOrWhiteSpace(Username) ? $"mongodb://{ServerString}/{databaseName}"
                 : $"mongodb://{Username}:{Password}@{ServerString}/{databaseName}";
         }
 

@@ -146,7 +146,7 @@ namespace MongoSharp.Model
                     if (innerDoc != null && innerDoc.Elements.Any())
                     {
                         string name;
-                        if (!String.IsNullOrWhiteSpace(parentObject))
+                        if (!string.IsNullOrWhiteSpace(parentObject))
                             name = parentObject + "." + element.Name;
                         else
                             name = element.Name;
@@ -166,7 +166,7 @@ namespace MongoSharp.Model
                             var document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(json);
 
                             string name;
-                            if (!String.IsNullOrWhiteSpace(parentObject))
+                            if (!string.IsNullOrWhiteSpace(parentObject))
                                 name = parentObject + "." + element.Name + "[]";
                             else
                                 name = element.Name + "[]";
@@ -174,7 +174,7 @@ namespace MongoSharp.Model
                         }
                         else
                         {
-                            if (!String.IsNullOrWhiteSpace(parentObject))
+                            if (!string.IsNullOrWhiteSpace(parentObject))
                                 sb.AppendLine(parentObject + "." + element.Name + "[]");
                             else
                                 sb.AppendLine(element.Name + "[]");
@@ -183,7 +183,7 @@ namespace MongoSharp.Model
                     }
                     else
                     {
-                        if (!String.IsNullOrWhiteSpace(parentObject))
+                        if (!string.IsNullOrWhiteSpace(parentObject))
                             sb.AppendLine(parentObject + "." + element.Name + "[]");
                         else
                             sb.AppendLine(element.Name + "[]");
@@ -191,7 +191,7 @@ namespace MongoSharp.Model
                 }
                 else
                 {
-                    if (!String.IsNullOrWhiteSpace(parentObject))
+                    if (!string.IsNullOrWhiteSpace(parentObject))
                         sb.AppendLine(parentObject + "." + element.Name);
                     else
                         sb.AppendLine(element.Name);

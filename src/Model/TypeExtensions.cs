@@ -20,8 +20,8 @@ namespace MongoSharp.Model
                 type.IsPrimitive ||
                 new []
                     {
-                        typeof (String),
-                        typeof (Decimal),
+                        typeof (string),
+                        typeof (decimal),
                         typeof (DateTime),
                         typeof (DateTimeOffset),
                         typeof (TimeSpan),

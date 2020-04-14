@@ -10,13 +10,17 @@ namespace MongoSharp.Model
         public List<string> GetProperties(MongoDatabaseInfo databaseInfo, string collectionName)
         {
             MongoCollectionModelInfo model = GetModel(databaseInfo, collectionName);
-            if (String.IsNullOrWhiteSpace(model.ModelCode))
+            if (string.IsNullOrWhiteSpace(model.ModelCode))
+            {
                 throw new Exception("Model does not exist");
+            }
 
             var types = new MongoDynamicCodeRunner().CompileModelCode(model.ModelCode);
             var rootType = types.Find(t => t.Name == model.RootClassName);
-            if(rootType == null)
+            if (rootType == null)
+            {
                 throw new Exception($"{model.RootClassName} class not found in Model.");
+            }
 
             List<PropertyData> properties = ObjectHelper.ToPropertyPaths(rootType);
 
@@ -26,13 +30,17 @@ namespace MongoSharp.Model
         public List<PropertyData> GetPropertiesPaths(MongoDatabaseInfo databaseInfo, string collectionName)
         {
             MongoCollectionModelInfo model = GetModel(databaseInfo, collectionName);
-            if (String.IsNullOrWhiteSpace(model.ModelCode))
+            if (string.IsNullOrWhiteSpace(model.ModelCode))
+            {
                 throw new Exception("Model does not exist");
+            }
 
             var types = new MongoDynamicCodeRunner().CompileModelCode(model.ModelCode);
             var rootType = types.Find(t => t.Name == model.RootClassName);
             if (rootType == null)
+            {
                 throw new Exception($"{model.RootClassName} class not found in Model.");
+            }
 
             List<PropertyData> properties = ObjectHelper.ToPropertyPaths(rootType);
 
@@ -131,7 +139,7 @@ namespace MongoSharp.Model
                     {
                         foreach (var collInfo in dbInfo.Collections)
                         {
-                            if (collInfo.HasModel && !String.IsNullOrWhiteSpace(collInfo.Namespace))
+                            if (collInfo.HasModel && !string.IsNullOrWhiteSpace(collInfo.Namespace))
                             {
                                 sb.AppendFormat("\tnamespace {0}\n\t{{\n", collInfo.Namespace);
                                 sb.AppendLine(AddTabsToEachLine(GetModelCode(dbInfo, collInfo.Name), 2, false, "\n"));
@@ -215,7 +223,7 @@ namespace MongoSharp.Model
             return text;
 
             var lines = text.Split(new[] { newLine }, StringSplitOptions.None);
-            var tabs = new String('\t', nbrOfTabs);
+            var tabs = new string('\t', nbrOfTabs);
 
             var sb = new StringBuilder();
             bool isFirst = true;

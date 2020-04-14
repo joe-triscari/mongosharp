@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Model")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Quad/Graphics, Inc.")]
+[assembly: AssemblyCompany("Joe Triscari")]
 [assembly: AssemblyProduct("Model")]
-[assembly: AssemblyCopyright("Copyright © Quad/Graphics, Inc. 2013")]
+[assembly: AssemblyCopyright("Copyright © Joe Triscari. 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

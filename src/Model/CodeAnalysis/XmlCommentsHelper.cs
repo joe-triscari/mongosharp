@@ -15,7 +15,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetMethodComments(IMethodSymbol methodSymbol)
         {
-            string xmlComments = String.Empty;
+            string xmlComments = string.Empty;
 
             try
             {
@@ -72,7 +72,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetMethodComments(MethodInfo methodInfo)
         {
-            string xmlComments = String.Empty;
+            string xmlComments = string.Empty;
 
             try
             {
@@ -99,7 +99,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetConstructorComments(ConstructorInfo constructorInfo)
         {
-            string xmlComments = String.Empty;
+            string xmlComments = string.Empty;
 
             try
             {
@@ -119,7 +119,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetTypeComments(ITypeSymbol typeSymbol)
         {
-            string xmlComments = String.Empty;
+            string xmlComments = string.Empty;
 
             try
             {   

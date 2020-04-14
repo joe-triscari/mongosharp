@@ -27,7 +27,7 @@ namespace MongoSharp.Model
                 var propType = prop.PropertyType;
                 if (propType == theType)
                 {
-                    propertyPaths.Add(!String.IsNullOrWhiteSpace(parentObject)
+                    propertyPaths.Add(!string.IsNullOrWhiteSpace(parentObject)
                                           ? new PropertyData
                                           {
                                               Path = parentObject + "." + prop.Name,
@@ -37,7 +37,7 @@ namespace MongoSharp.Model
                 }
                 else if (propType.IsSimpleType() || propType.Name == "ObjectId" || propType.Name.StartsWith("Bson"))
                 {
-                    propertyPaths.Add(!String.IsNullOrWhiteSpace(parentObject)
+                    propertyPaths.Add(!string.IsNullOrWhiteSpace(parentObject)
                                           ? new PropertyData
                                               {
                                                   Path = parentObject + "." + prop.Name,
@@ -50,7 +50,7 @@ namespace MongoSharp.Model
                     propType = propType.GetElementType() ?? propType;
                     if (propType.IsSimpleType() || propType.Name == "ObjectId" || propType.Name.StartsWith("Bson"))
                     {
-                        propertyPaths.Add(!String.IsNullOrWhiteSpace(parentObject)
+                        propertyPaths.Add(!string.IsNullOrWhiteSpace(parentObject)
                                               ? new PropertyData
                                                   {
                                                       Path = parentObject + "." + prop.Name + "[]",
@@ -61,7 +61,7 @@ namespace MongoSharp.Model
                     else
                     {
                         ToPropertyPaths(propType,
-                                        !String.IsNullOrWhiteSpace(parentObject)
+                                        !string.IsNullOrWhiteSpace(parentObject)
                                             ? parentObject + "." + prop.Name + "[]"
                                             : prop.Name + "[]", ref propertyPaths);
                     }                    
@@ -69,7 +69,7 @@ namespace MongoSharp.Model
                 else if (propType.IsClass)
                 {
                     string name;
-                    if (!String.IsNullOrWhiteSpace(parentObject))
+                    if (!string.IsNullOrWhiteSpace(parentObject))
                         name = parentObject + "." + prop.Name;
                     else
                         name = prop.Name;
@@ -80,7 +80,7 @@ namespace MongoSharp.Model
                 {
                     propType = propType.GetElementType();
 
-                    propertyPaths.Add(!String.IsNullOrWhiteSpace(parentObject)
+                    propertyPaths.Add(!string.IsNullOrWhiteSpace(parentObject)
                                           ? new PropertyData
                                           {
                                               Path = parentObject + "." + prop.Name + "[]",
