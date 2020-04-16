@@ -57,8 +57,9 @@ namespace MongoSharp.Model
                         }
                     }
 
-                    if(_instance.CodeSnippets.Count == 0)
+                    if(_instance.CodeSnippets == null)
                     {
+                        _instance.CodeSnippets = new List<CodeSnippet>();
                         _instance.CodeSnippets.Add(new CodeSnippet
                         {
                             Name = "group by",

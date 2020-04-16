@@ -33,48 +33,61 @@ namespace MongoSharp
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            string json;
+
             if (tabControlMain.SelectedIndex == 0)
             {
-                string json = txtJson.Text;
-                if(!string.IsNullOrWhiteSpace(json))
-                {
-                    bool isConverting = true;
+                json = txtJson.Text;
+                //if(!string.IsNullOrWhiteSpace(json))
+                //{
+                //    bool isConverting = true;
 
-                    try
-                    {
-                        Cursor.Current = Cursors.WaitCursor;
+                //    try
+                //    {
+                //        Cursor.Current = Cursors.WaitCursor;
 
-                        var document = BsonSerializer.Deserialize<BsonDocument>(json);
-                        isConverting = false;
-                        if (!_isValidating)
-                        {
-                            var mongoCollection = CollectionInfo.Database.GetCollection(CollectionInfo.Name);
-                            mongoCollection.Insert(document, WriteConcern.Acknowledged);
-                        }
-                        else
-                        {
-                            txtJson.Text = document.ToJson(new JsonWriterSettings { Indent = true });
-                            MessageBox.Show("Valid!", "Validation");
-                        }
-                    }
-                    catch(Exception ex)
-                    {
-                        if(isConverting)
-                        {
-                            MessageBox.Show("Failed to convert json to Bson Document.\r\n\r\n" +
-                                ex.Message, "Invalid JSON", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to insert document.\r\n\r\n" +
-                                ex.Message, "Insert Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    finally
-                    {
-                        Cursor.Current = Cursors.Default;
-                    }
-                }                
+                //        var bsonDocs = new List<BsonDocument>();
+                //        if (checkBoxIsArray.Checked)
+                //        {
+                //            var bsonArray = BsonSerializer.Deserialize<BsonArray>(json);
+                //            bsonArray.
+                //        }
+                //        else
+                //        {
+                //            var document = BsonSerializer.Deserialize<BsonDocument>(json);
+                //            bsonDocs.Add(document);
+                //        }
+
+                //        isConverting = false;
+                //        if (!_isValidating)
+                //        {
+                //            var mongoCollection = CollectionInfo.Database.GetCollection(CollectionInfo.Name);
+                //            mongoCollection.InsertBatch(bsonDocs, WriteConcern.Acknowledged);
+                //        }
+                //        else
+                //        {
+                //            txtJson.Text = bsonDocs.ToJson(new JsonWriterSettings { Indent = true });
+                //            MessageBox.Show("Valid!", "Validation");
+                //        }
+                //    }
+                //    catch(Exception ex)
+                //    {
+                //        if(isConverting)
+                //        {
+                //            MessageBox.Show("Failed to convert json to Bson Document.\r\n\r\n" +
+                //                ex.Message, "Invalid JSON", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        }
+                //        else
+                //        {
+                //            MessageBox.Show("Failed to insert document.\r\n\r\n" +
+                //                ex.Message, "Insert Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        }
+                //    }
+                //    finally
+                //    {
+                //        Cursor.Current = Cursors.Default;
+                //    }
+                //}                
             }
             else
             {
@@ -85,42 +98,46 @@ namespace MongoSharp
                     return;
                 }
 
-                int success=0, failed=0, total=0;
-                try
-                {
-                    Cursor.Current = Cursors.WaitCursor;
+                json = File.ReadAllText(file);
+            }
 
-                    string json = File.ReadAllText(file);
-                    if(!string.IsNullOrWhiteSpace(json))
-                    {
-                        var bsonDocs = ConvertToBsonDocuments(ParseJson(json, checkBoxIsArray.Checked), cbxStopOnError.Checked && !_isValidating, out success, out failed);
-                        total = bsonDocs.Count;
-                        if (total > 0 && !_isValidating)
-                        {
-                            var mongoCollection = CollectionInfo.Database.GetCollection(CollectionInfo.Name);
-                            mongoCollection.InsertBatch(bsonDocs, WriteConcern.Acknowledged);    
-                        }
-                    }
-                    Cursor.Current = Cursors.Default;
+            int success = 0, failed = 0, total = 0;
+            bool isConverting = true;
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
 
-                    if(!_isValidating)
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    var bsonDocs = ConvertToBsonDocuments(ParseJson(json, checkBoxIsArray.Checked), cbxStopOnError.Checked && !_isValidating, out success, out failed);
+                    isConverting = false;
+                    total = bsonDocs.Count;
+                    if (total > 0 && !_isValidating)
                     {
-                        MessageBox.Show(
-                            $"{success} document(s) successfully imported.\r\n{failed} document(s) failed to import.\r\n{total - success - failed} document(s) were skipped.", "Import Complete");
+                        var mongoCollection = CollectionInfo.Database.GetCollection(CollectionInfo.Name);
+                        mongoCollection.InsertBatch(bsonDocs, WriteConcern.Acknowledged);
                     }
-                    else
-                        MessageBox.Show("Valid!", "Validation");
-                    
                 }
-                catch(Exception ex)
+                Cursor.Current = Cursors.Default;
+
+                if (!_isValidating)
                 {
-                    MessageBox.Show("An error occurred while importing.\r\n\r\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{success} document(s) successfully imported.\r\n{failed} document(s) failed to import.\r\n{total - success - failed} document(s) were skipped.", "Import Complete");
                 }
-                finally
+                else
                 {
-                    Cursor.Current = Cursors.Default;
+                    MessageBox.Show("Valid!", "Validation");
                 }
-                
+
+            }
+            catch (Exception ex)
+            {
+                string msg = isConverting ? "converting json to documents" : "saving documents";
+                MessageBox.Show($"An error occurred while {msg}.\r\n\r\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
             }
         }
 
