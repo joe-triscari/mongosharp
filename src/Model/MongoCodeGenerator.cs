@@ -109,7 +109,6 @@ namespace MongoSharp.Model
 
         public string GenerateMongoCode(MongoDatabaseInfo databaseInfo, string collectionName, string linqQuery, string mode, out int injectedCodeStartPos)
         {
-            string classSyntax = GetModelCode(databaseInfo, collectionName);
             var collectionInfo = databaseInfo.GetCollectionInfo(collectionName);
             int additionalLength = 0;
             injectedCodeStartPos = 0;
@@ -121,6 +120,7 @@ namespace MongoSharp.Model
             sb.AppendLine("using MongoDB.Bson.IO;");
             sb.AppendLine("using MongoDB.Bson.Serialization.Attributes;");
             sb.AppendLine("using MongoDB.Driver;");
+            sb.AppendLine("using MongoDB.Driver.Core;");
             sb.AppendLine("using MongoDB.Driver.Builders;");
             sb.AppendLine("using MongoDB.Driver.Linq;");
             sb.AppendLine("using System.Collections.Generic;");
@@ -152,7 +152,7 @@ namespace MongoSharp.Model
                 sb.AppendLine("");
             }
 
-            string modelType = mode == MongoSharpQueryMode.Json ? "BsonDocument" : collectionInfo.Namespace + "." + collectionInfo.Models[0].RootClassName;
+            string modelType = mode == MongoSharpQueryMode.Json || !collectionInfo.Models.Any() ? "BsonDocument" : collectionInfo.Namespace + "." + collectionInfo.Models[0].RootClassName;
 
             sb.AppendLine("\tpublic class QueryExecutor");
             sb.AppendLine("\t{");

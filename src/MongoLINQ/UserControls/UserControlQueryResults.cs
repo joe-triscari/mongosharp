@@ -24,7 +24,7 @@ namespace MongoSharp
             if(tabControlResults.SelectedTab == null)
                 return;
 
-            var result = tabControlResults.SelectedTab.Controls.OfType<IUserControlQueryResult>();
+            var result = tabControlResults.SelectedTab.Controls.OfType<IUserControlQueryResult>().ToList();
             if (result.Any())
             {
                 result.First().OnSelected();
@@ -44,8 +44,7 @@ namespace MongoSharp
 
         public void PostLoadProcessing()
         {
-            if (_gridUserControl != null)
-                _gridUserControl.AddRowNumbers();
+            _gridUserControl?.AddRowNumbers();
         }
 
         private TabPage AddGridTabpage(QueryResult queryResult)
@@ -54,11 +53,10 @@ namespace MongoSharp
             var queryResultControl = new UserControlQueryResultsGrid
                 {
                     Dock = DockStyle.Fill,
-                    OnCreateTableFromResults = (tbl) =>
-                        {
-                            if (OnCreateTableFromResults != null)
-                                OnCreateTableFromResults(tbl);
-                        }
+                    OnCreateTableFromResults = tbl =>
+                    {
+                        OnCreateTableFromResults?.Invoke(tbl);
+                    }
                 };
 
             queryResultControl.LoadResults(queryResult);

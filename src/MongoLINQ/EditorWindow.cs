@@ -626,7 +626,7 @@ namespace MongoSharp
             tabControlCollection.TabPages.Add(page);
             page.Select();
 
-            var scintillaControl = ((Scintilla)results.Controls[0]);
+            var scintillaControl = (Scintilla)results.Controls[0];
             scintillaControl.SetLanguage("cs");
             scintillaControl.ShowLineNumbers(true);
 
@@ -642,7 +642,7 @@ namespace MongoSharp
             tabControlCollection.TabPages.Add(page);
             page.Select();
 
-            var scintillaControl = ((Scintilla)results.Controls[0]);
+            var scintillaControl = (Scintilla)results.Controls[0];
             scintillaControl.SetLanguage("mssql");
             scintillaControl.ShowLineNumbers(true);
 
