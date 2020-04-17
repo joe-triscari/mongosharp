@@ -14,38 +14,6 @@ namespace MongoSharp
         public Form1()
         {
             InitializeComponent();
-            
-            //Settings.Instance.Connections.Add(new MongoConnectionInfo
-            //    {
-            //        Id = Guid.NewGuid().ToString(),
-            //        Name = "Acctg Data BETA",
-            //        ServerString = "sxmongobeta1:20100,wamongodev1:20100",
-            //        Username = "accounting_",
-            //        Password = "yy2WyGf6",
-            //        Databases = new List<MongoDatabaseInfo>
-            //            {
-            //                new MongoDatabaseInfo
-            //                    {
-            //                        Name = "accounting"
-            //                    }
-            //            }
-            //    });
-            //Settings.Instance.Connections.Add(new MongoConnectionInfo
-            //{
-            //    Id = Guid.NewGuid().ToString(),
-            //    Name = "Acctg Data PROD",
-            //    ServerString = "qgmongodata1:30100,qgmongodata2:30100",
-            //    Username = "accounting_",
-            //    Password = "4PWMnQky",
-            //    Databases = new List<MongoDatabaseInfo>
-            //            {
-            //                new MongoDatabaseInfo
-            //                    {
-            //                        Name = "accounting"
-            //                    }
-            //            }
-            //});
-            //Settings.Instance.Save();            
 
             dockPanel.AllowDrop = true;
             dockPanel.DragEnter += dockPanel_DragEnter;
