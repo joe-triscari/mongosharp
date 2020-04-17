@@ -63,7 +63,7 @@ namespace MongoSharp.Model
                     $"Collection '{collectionName}' is empty. Unable to determine schema from first document");
 
             var schemaInfo = MongoCollectionSchemaStore.GetSchemaDocument(databaseInfo, collectionName);
-            var classes = new BsonDocumentConverter().ToCSharpClassDeclarations(schemaInfo.SchemaDocument);
+            var classes = new BsonDocumentConverter().ToCSharpClassDeclarations(schemaInfo.SchemaDocument, collectionName);
 
             var sb = new StringBuilder();
             foreach (var classSyntax in classes)
@@ -93,7 +93,7 @@ namespace MongoSharp.Model
                     $"Collection '{collectionName}' is empty. Unable to determine schema from first document");
 
             var schemaInfo = MongoCollectionSchemaStore.GetSchemaDocument(databaseInfo, collectionName);
-            var classes = new BsonDocumentConverter().ToCSharpClassDeclarations(schemaInfo.SchemaDocument);
+            var classes = new BsonDocumentConverter().ToCSharpClassDeclarations(schemaInfo.SchemaDocument, collectionName);
 
             var sb = new StringBuilder();
             foreach (var classSyntax in classes)

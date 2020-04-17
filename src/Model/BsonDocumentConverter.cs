@@ -6,22 +6,28 @@ using MongoDB.Bson;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using System.Data.Entity.Design.PluralizationServices;
+using System.Globalization;
 
 namespace MongoSharp.Model
 {
     public class BsonDocumentConverter
     {
-        public List<string> ToCSharpClassDeclarations(BsonDocument bsonDocument)
+
+        private static readonly PluralizationService _pluralizationService =
+            PluralizationService.CreateService(CultureInfo.CurrentCulture);
+
+        public List<string> ToCSharpClassDeclarations(BsonDocument bsonDocument, string collectionName)
         {
             var docs = new List<string> {""};
-            ToCSharpClassDeclarations(bsonDocument, "Doc0", ref docs);
+            ToCSharpClassDeclarations(bsonDocument, collectionName, ref docs);
 
             return docs;
         }
 
         private void ToCSharpClassDeclarations(BsonDocument bsonDocument, string docName, ref List<string> docs)
         {
-            string classDef = $"[BsonIgnoreExtraElements]\npublic class {docName}\n{{\n";
+            string classDef = $"[BsonIgnoreExtraElements]\npublic class {GetDocName(docName)}Model\n{{\n";
 
             foreach (BsonElement element in bsonDocument.Elements)
             {
@@ -30,7 +36,7 @@ namespace MongoSharp.Model
                     var innerDoc = element.Value.AsBsonDocument;                    
                     if (innerDoc != null && innerDoc.Elements.Any())
                     {
-                        classDef += $"\tpublic {GetDocName(element.Name)} {element.Name} {{ get; set; }}\n";
+                        classDef += $"\tpublic {GetDocName(element.Name)}Model {GetPropertyName(element.Name)} {{ get; set; }}\n";
                         ToCSharpClassDeclarations(element.Value.AsBsonDocument, GetDocName(element.Name), ref docs);
                     }
                 }
@@ -42,24 +48,24 @@ namespace MongoSharp.Model
                         var first = ar.First();
                         if(!first.IsBsonDocument)
                         {
-                            classDef += $"\tpublic {ToCSharpType(first)} [] {element.Name} {{ get; set; }}\n";
+                            classDef += $"\tpublic {ToCSharpType(first)} [] {GetPropertyName(element.Name)} {{ get; set; }}\n";
                         }
                         else
                         {
                             var document = first.AsBsonDocument;
 
-                            classDef += $"\tpublic {GetDocName(element.Name)} [] {element.Name} {{ get; set; }}\n";
+                            classDef += $"\tpublic {GetDocName(element.Name)}Model [] {GetPropertyName(element.Name)} {{ get; set; }}\n";
                             ToCSharpClassDeclarations(document, GetDocName(element.Name), ref docs);
                         }
                     }
                     else
                     {   // No elements, can't determine type.
-                        classDef += $"\tpublic BsonValue [] {element.Name} {{ get; set; }}\n";
+                        classDef += $"\tpublic BsonValue [] {GetPropertyName(element.Name)} {{ get; set; }}\n";
                     }
                 }
                 else if (element.Name != "ExtensionData")
                 {
-                    classDef += $"\tpublic {ToCSharpType(element.Value)} {element.Name} {{ get; set; }}\n";
+                    classDef += $"\tpublic {ToCSharpType(element.Value)} {GetPropertyName(element.Name)} {{ get; set; }}\n";
                 }
             }
 
@@ -68,14 +74,23 @@ namespace MongoSharp.Model
             docs.Add(classDef);
         }
 
-        private string GetDocName(string name)
+        public string GetDocName(string name)
         {
-            if (name.EndsWith("ies"))
-                return name.Substring(0, name.Length - 3) + "y";
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return name;
+            }
 
-            if(name.EndsWith("s"))
-                return name.Substring(0, name.Length - 1);
+            name = _pluralizationService.Singularize(name);
 
+            TextInfo txtInfo = new CultureInfo("en-us", false).TextInfo;
+            name = txtInfo.ToTitleCase(name).Replace('_', ' ').Replace(" ", String.Empty);
+
+            return name;
+        }
+
+        private string GetPropertyName(string name)
+        {
             return name;
         }
 
