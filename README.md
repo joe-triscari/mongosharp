@@ -1,8 +1,9 @@
 # mongosharp
 C#/LINQ based query tool for MongoDb
 
-Please see overview here
-https://github.com/joe-triscari/mongosharp/wiki
+Learn more:
+* [Overview](https://github.com/joe-triscari/mongosharp/wiki)
+* [Getting Started](https://github.com/joe-triscari/mongosharp/wiki/Getting-Started)
 
 # Contributions
 * Please report bugs as GitHub Issues.
