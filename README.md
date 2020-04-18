@@ -1,5 +1,5 @@
 # mongosharp
-C#/LINQ based query tool for MongoDb
+MongoSharp is a Windows based UI tool for executing queries against [MongoDB](https://www.mongodb.com/) collections. Although there are many query tools on the market MongoSharp is uniqe in that it allows you to write [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) based queries in C# (hence the name). Of course it is also free and open source.
 
 Learn more:
 * [Overview](https://github.com/joe-triscari/mongosharp/wiki)
