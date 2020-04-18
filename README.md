@@ -3,7 +3,7 @@ MongoSharp is a Windows based UI tool for executing queries against [MongoDB](ht
 
 Learn more:
 * [Overview](https://github.com/joe-triscari/mongosharp/wiki)
-* [Basic Demo](https://youtu.be/jIDvQHPRZBY)
+* [Basic Demo](https://youtu.be/jIDvQHPRZBY) (Stay tuned for a better quality video)
 * [Getting Started](https://github.com/joe-triscari/mongosharp/wiki/Getting-Started)
 
 # Contributions
