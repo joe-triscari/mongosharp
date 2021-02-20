@@ -16,7 +16,7 @@ namespace MongoSharp
         private void buttonOk_Click(object sender, EventArgs e)
         {
             string name = textBoxName.Text.Trim();
-            if (String.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
                 return;
 
             if (Settings.Instance.CodeSnippets.Exists(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)))

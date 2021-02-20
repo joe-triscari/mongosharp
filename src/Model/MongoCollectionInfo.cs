@@ -25,7 +25,7 @@ namespace MongoSharp.Model
         public bool HasModel => Models != null && Models.Count > 0;
 
         [XmlIgnore]
-        public bool HasNamespace => !String.IsNullOrWhiteSpace(Namespace);
+        public bool HasNamespace => !string.IsNullOrWhiteSpace(Namespace);
 
         [XmlIgnore]
         public string Path => $"{Database.Connection.Name}.{Database.Name}.{Name}";

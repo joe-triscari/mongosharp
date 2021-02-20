@@ -91,20 +91,8 @@ namespace MongoSharp.Model.CodeAnalysis
         {
             var result = new SymbolResult();
 
-            SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source);
-            var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-            var compilation = CSharpCompilation.Create("output", options: options)
-                .AddSyntaxTrees(syntaxTree)
-                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
-                               );
-
-            SemanticModel semanticModel = compilation.GetSemanticModel(syntaxTree);
+            var syntaxTree = CSharpSyntaxTree.ParseText(source);
+            var semanticModel = GenerateSemanticModel(syntaxTree);
 
             if (c == '.')
             {
@@ -218,22 +206,36 @@ namespace MongoSharp.Model.CodeAnalysis
             return methods.Where(x => x.Name == methodName).ToList();
         }
 
-        public string GetCallTipTextAtPosition(string code, int position)
+        public static CSharpCompilation CreateCompilation(SyntaxTree syntaxTree)
         {
-            SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(code);
             var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
             var compilation = CSharpCompilation.Create("output", options: options)
                 .AddSyntaxTrees(syntaxTree)
                 .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
-                               );
+                    MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(MongoDB.Driver.WriteConcernResult).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
+                );
 
+            return compilation;
+        }
+
+        public static SemanticModel GenerateSemanticModel(SyntaxTree syntaxTree)
+        {
+            var compilation = CreateCompilation(syntaxTree);
             var semanticModel = compilation.GetSemanticModel(syntaxTree);
+
+            return semanticModel;
+        }
+
+        public string GetCallTipTextAtPosition(string code, int position)
+        {
+            var syntaxTree = CSharpSyntaxTree.ParseText(code);
+            var semanticModel = GenerateSemanticModel(syntaxTree);
 
             SyntaxToken token = syntaxTree.GetRoot().FindToken(position);
             SyntaxNode identifier = token.Parent;
@@ -277,20 +279,8 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public List<Diagnostic> GetDiagnostics(string source)
         {
-            SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source);
-            var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-            var compilation = CSharpCompilation.Create("output", options: options)
-                .AddSyntaxTrees(syntaxTree)
-                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
-                               );
-
-            var semanticModel = compilation.GetSemanticModel(syntaxTree);
+            var syntaxTree = CSharpSyntaxTree.ParseText(source);
+            var semanticModel = GenerateSemanticModel(syntaxTree);
 
             return (from e in semanticModel.GetDiagnostics()
                     select e).ToList();

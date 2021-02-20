@@ -223,7 +223,7 @@ namespace MongoSharp
             {
                 var editorWindow = WindowManager.Instance.ActiveEditorWindow;
                 string selectedText = editorWindow.GetSelectedText();
-                if(String.IsNullOrWhiteSpace(selectedText))
+                if(string.IsNullOrWhiteSpace(selectedText))
                 {
                     MessageBox.Show("Select text to create a code snippet from.", "Code Snippet");
                     return;

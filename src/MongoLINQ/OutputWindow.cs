@@ -24,11 +24,11 @@ namespace MongoSharp
 
         public void AppendOutput(string text)
         {
-            if(String.IsNullOrEmpty(text))
+            if(string.IsNullOrEmpty(text))
                 return;
 
-            string line=String.Empty;
-            if (txtOutput.Text != String.Empty)
+            string line=string.Empty;
+            if (txtOutput.Text != string.Empty)
                 line = Environment.NewLine;
 
             if(Settings.Instance.Preferences.OutputShowTimestamp)

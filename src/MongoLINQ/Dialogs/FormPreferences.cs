@@ -24,7 +24,7 @@ namespace MongoSharp
             tabControlMain.SizeMode = TabSizeMode.Fixed;
             tabControlMain.ItemSize = new System.Drawing.Size(0, 1);
 
-            if (String.IsNullOrWhiteSpace(_preferences.EditorSyntaxLanguage))
+            if (string.IsNullOrWhiteSpace(_preferences.EditorSyntaxLanguage))
             {
                 _preferences.EditorSyntaxLanguage = "mssql";
                 comboBoxSynLang.SelectedItem = _preferences.EditorSyntaxLanguage;
@@ -136,7 +136,7 @@ namespace MongoSharp
         private void comboBoxOutputTimestampFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedFormat = comboBoxOutputTimestampFormat.SelectedItem as string;
-            if(!String.IsNullOrWhiteSpace(selectedFormat))
+            if(!string.IsNullOrWhiteSpace(selectedFormat))
             {
                 _preferences.OutputTimestampFormat = selectedFormat;
                 lblOutputTimestampFormat.Text = DateTime.Now.ToString(selectedFormat);

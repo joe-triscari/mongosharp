@@ -61,12 +61,12 @@ namespace MongoSharp
             MongoClient client;
             MongoServer server;
 
-            if (String.IsNullOrWhiteSpace(txtBoxServer.Text))
+            if (string.IsNullOrWhiteSpace(txtBoxServer.Text))
             {
                 MessageBox.Show("Server missing", "Missing Parameters");
                 return false;
             }
-            if (String.IsNullOrWhiteSpace(txtBoxDatabase.Text))
+            if (string.IsNullOrWhiteSpace(txtBoxDatabase.Text))
             {
                 MessageBox.Show("Database missing", "Missing Parameters");
                 return false;
@@ -76,15 +76,15 @@ namespace MongoSharp
             {
                 string databaseString = txtBoxDatabase.Text.Trim().TrimEnd(',');
                 string connect;
-                if (String.IsNullOrWhiteSpace(databaseString))
+                if (string.IsNullOrWhiteSpace(databaseString))
                 {
-                    connect = String.IsNullOrWhiteSpace(txtBoxUsername.Text)
+                    connect = string.IsNullOrWhiteSpace(txtBoxUsername.Text)
                                   ? $"mongodb://{txtBoxServer.Text}"
                                   : $"mongodb://{txtBoxUsername.Text}:{txtBoxPassword.Text}@{txtBoxServer.Text}";
                 }
                 else
                 {
-                    connect = String.IsNullOrWhiteSpace(txtBoxUsername.Text) ? $"mongodb://{txtBoxServer.Text}/{databaseString}"
+                    connect = string.IsNullOrWhiteSpace(txtBoxUsername.Text) ? $"mongodb://{txtBoxServer.Text}/{databaseString}"
                         : $"mongodb://{txtBoxUsername.Text}:{txtBoxPassword.Text}@{txtBoxServer.Text}/{databaseString}";
                 }                
 
@@ -126,7 +126,7 @@ namespace MongoSharp
         {
             if (TestConnection())
             {
-                if (String.IsNullOrWhiteSpace(txtBoxName.Text))
+                if (string.IsNullOrWhiteSpace(txtBoxName.Text))
                 {
                     MessageBox.Show("Please enter a connection name");
                     return;

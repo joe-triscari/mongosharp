@@ -64,7 +64,7 @@ namespace MongoSharp
         private void CreateIndexJsonMode()
         {
             string indexJson = textBoxIndexJson.Text.Trim();
-            if (String.IsNullOrWhiteSpace(indexJson))
+            if (string.IsNullOrWhiteSpace(indexJson))
                 throw new Exception("Enter index json.");
 
             IndexKeysDocument keys = null;
@@ -79,7 +79,7 @@ namespace MongoSharp
 
             string optionJson = textBoxIndexOptionsJson.Text.Trim();
             IndexOptionsDocument options = null;
-            if(String.IsNullOrWhiteSpace(optionJson))
+            if(string.IsNullOrWhiteSpace(optionJson))
             {
                 options = new IndexOptionsDocument();
             }
@@ -98,7 +98,7 @@ namespace MongoSharp
             if (!options.Contains("name"))
             {
                 string indexName = txtBoxIndexName.Text;
-                if (String.IsNullOrWhiteSpace(indexName))
+                if (string.IsNullOrWhiteSpace(indexName))
                     throw new Exception("Please enter an index name.");
 
                 options.Add("name", indexName);
@@ -122,7 +122,7 @@ namespace MongoSharp
         private void CreateIndexBasicMode()
         {
             string indexName = txtBoxIndexName.Text;
-            if (String.IsNullOrWhiteSpace(indexName))
+            if (string.IsNullOrWhiteSpace(indexName))
                 throw new Exception("Please enter an index name.");
 
             var mongoCollection = MongoCollectionInfo.GetMongoCollection();

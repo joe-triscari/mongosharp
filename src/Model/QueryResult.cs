@@ -11,14 +11,14 @@ namespace MongoSharp.Model
     {
         private class MultiValueColumn { };
 
-        public List<List<Object>> Results { get; set; }
+        public List<List<object>> Results { get; set; }
         public List<PropertyData> Properties { get; set; }
         public Type Type { get; set; }
         public IEnumerable<object> RawResults { get; set; }
 
         public bool IsBsonDocuments { get; set; }
 
-        public static QueryResult ToQueryResultFromList(IEnumerable<Object> results)
+        public static QueryResult ToQueryResultFromList(IEnumerable<object> results)
         {
             var queryResult = new QueryResult();
             List<object> list = results.ToList();

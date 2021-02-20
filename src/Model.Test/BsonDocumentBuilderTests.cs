@@ -12,14 +12,14 @@ namespace Model.Test
     [TestFixture]
     public class BsonDocumentBuilderTests
     {
-        [Test]
+        [Test, Explicit]
         public void Test()
         {
-            var client = new MongoClient("mongodb://accounting_:4PWMnQky@qgmongodata1:30100,qgmongodata2:30100");
+            var client = new MongoClient("");
             var server = client.GetServer();
-            var db = server.GetDatabase("accounting");
+            var db = server.GetDatabase("");
 
-            var collection = db.GetCollection("JournalImportDocs");
+            var collection = db.GetCollection("");
             List<BsonDocument> docs = collection.FindAll().ToList();
             var builder = new BsonDocumentBuilder();
 

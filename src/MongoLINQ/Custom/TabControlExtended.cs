@@ -57,7 +57,7 @@ namespace MongoSharp
             {
                 var scintillaCode = tabPage.Controls[0].Controls[0];
                 string code = scintillaCode.Text;
-                if (!String.IsNullOrWhiteSpace(code) && OnExecuteCode != null)
+                if (!string.IsNullOrWhiteSpace(code) && OnExecuteCode != null)
                 {
                     OnExecuteCode(code);
                 }

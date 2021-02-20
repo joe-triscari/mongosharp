@@ -36,9 +36,10 @@ namespace MongoSharp
                     var sb = new StringBuilder();
                     foreach (object rawResult in _queryResult.RawResults)
                     {
-                        string json = rawResult is BsonDocument ? GetPrettyPrintedJson((BsonDocument)rawResult) :
-                                                                    Newtonsoft.Json.JsonConvert.SerializeObject(rawResult, Formatting.Indented);
-                        sb.AppendLine("/* " + (counter++) + " */" + System.Environment.NewLine + json);
+                        string json = rawResult is BsonDocument
+                            ? GetPrettyPrintedJson((BsonDocument) rawResult)
+                            : Newtonsoft.Json.JsonConvert.SerializeObject(rawResult, Formatting.Indented);
+                        sb.AppendLine("/* " + counter++ + " */" + System.Environment.NewLine + json);
                     }
 
                     scintilla1.Text = sb.ToString();

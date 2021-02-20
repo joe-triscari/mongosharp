@@ -21,7 +21,7 @@ namespace MongoSharp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if(String.IsNullOrWhiteSpace(textBoxDatabase.Text))
+            if(string.IsNullOrWhiteSpace(textBoxDatabase.Text))
             {
                 MessageBox.Show("Invalid Database name");
                 return;

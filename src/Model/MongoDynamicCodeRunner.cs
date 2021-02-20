@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
+using MongoSharp.Model.CodeAnalysis;
 
 namespace MongoSharp.Model
 {
@@ -15,19 +16,8 @@ namespace MongoSharp.Model
         public List<QueryResult> CompileAndRun(string code, string mode, TextWriter textWriter)
         {
             SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(code);
+            var compilation = CodeAnalysisService.CreateCompilation(syntaxTree);
 
-            var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-            var compilation = CSharpCompilation.Create("output", options: options)
-                .AddSyntaxTrees(syntaxTree)
-                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
-                               );
-        
             using (var stream = new MemoryStream())
             {
                 EmitResult result = compilation.Emit(stream);
@@ -50,17 +40,17 @@ namespace MongoSharp.Model
                         throw new Exception("MethodInfo is null");
 
                     var results = (List<QueryResult>)methInfo.Invoke(null, new[] { textWriter });
+
                     return results;
                 }
-                else
-                {
-                    int lineNbr = GetCodeStartLineNumber(code) -1;
-                    var errors = (from x in result.Diagnostics
-                                  where x.Severity == DiagnosticSeverity.Error
-                                  select x).ToList();
-                    string text = errors.Aggregate("Compile error: ", (current, ce) => current + ("\r\n" + GetErrorText(ce, lineNbr)));
-                    throw new Exception(text);
-                }
+
+                int lineNbr = GetCodeStartLineNumber(code) - 1;
+                var errors = (from x in result.Diagnostics
+                    where x.Severity == DiagnosticSeverity.Error
+                    select x).ToList();
+                string text = errors.Aggregate("Compile error: ", (current, ce) => current + ("\r\n" + GetErrorText(ce, lineNbr)));
+
+                throw new Exception(text);
             }
         }
 
@@ -102,18 +92,7 @@ namespace MongoSharp.Model
             code = sb.ToString() + "namespace " + theNamespace + " {\r\n" + code + "\r\n}";
 
             SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(code);
-            
-            var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-            var compilation = CSharpCompilation.Create("output", options: options)
-                .AddSyntaxTrees(syntaxTree)
-                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoSharpTextWriter).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IEnumerable<int>).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(IQueryable).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Bson.BsonDocument).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoCollection).Assembly.Location),
-                               MetadataReference.CreateFromFile(typeof(MongoDB.Driver.MongoClient).Assembly.Location)
-                               );
+            var compilation = CodeAnalysisService.CreateCompilation(syntaxTree);
 
             using (var stream = new MemoryStream())
             {

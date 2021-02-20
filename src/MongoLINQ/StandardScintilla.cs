@@ -123,7 +123,7 @@ namespace MongoSharp
 
             int offset = CodePositionMapper != null ? CodePositionMapper(this.Text, 0) : 0;
             string fullCode = GetCode == null ? this.Text : GetCode();
-            if (fullCode == String.Empty)
+            if (fullCode == string.Empty)
                 return;
 
             var cas = new CodeAnalysisService();
@@ -185,7 +185,7 @@ namespace MongoSharp
             const int OFFSET = 0; //2 (old code)
 
             string fullCode = GetCode == null ? this.Text : GetCode();
-            if (fullCode == String.Empty)
+            if (fullCode == string.Empty)
                 return;
 
             int curpos = CodePositionMapper != null
@@ -232,14 +232,14 @@ namespace MongoSharp
             }
 
             var currentChar = fullCode[mappedPos];
-            if (Char.IsWhiteSpace(currentChar))
+            if (char.IsWhiteSpace(currentChar))
             {
                 this.CallTip.Hide();
                 return;
             }
 
             var callTipText = new CodeAnalysisService().GetCallTipTextAtPosition(fullCode, mappedPos);
-            if (!String.IsNullOrWhiteSpace(callTipText))
+            if (!string.IsNullOrWhiteSpace(callTipText))
             {
                 this.CallTip.BackColor = Color.FromArgb(231, 232, 236);
                 this.CallTip.ForeColor = Color.Black;
@@ -250,13 +250,13 @@ namespace MongoSharp
                     var chars = callTipText.ToCharArray();
                     for(int i = 149; i < chars.Length; i++)
                     {
-                        if(Char.IsWhiteSpace(chars[i]))
+                        if(char.IsWhiteSpace(chars[i]))
                         {
                             chars[i] = '\n';
                             break;
                         }
                     }
-                    callTipText = new String(chars);
+                    callTipText = new string(chars);
                 }
                 this.CallTip.Show(callTipText, curpos);
             }
@@ -270,7 +270,7 @@ namespace MongoSharp
         {            
             NativeInterface.IndicatorClearRange(0, Text.Length);
 
-            if (String.IsNullOrWhiteSpace(Selection.Text))
+            if (string.IsNullOrWhiteSpace(Selection.Text))
                 return;
 
             foreach (Range r in FindReplace.FindAll(Selection.Text))
@@ -317,7 +317,7 @@ namespace MongoSharp
                                                                                          .InsertText(codeSnippet.Code);
                                                                         })
                           {
-                              ToolTipText = !String.IsNullOrWhiteSpace(codeSnippet.Description)? codeSnippet.Description : codeSnippet.Name
+                              ToolTipText = !string.IsNullOrWhiteSpace(codeSnippet.Description)? codeSnippet.Description : codeSnippet.Name
                           };
                 dropDown.Add(ddi);
             }

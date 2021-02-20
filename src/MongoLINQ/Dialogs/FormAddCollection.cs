@@ -15,7 +15,7 @@ namespace MongoSharp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(textBoxCollection.Text))
+            if (string.IsNullOrWhiteSpace(textBoxCollection.Text))
             {
                 MessageBox.Show("Invalid Collection name");
                 return;

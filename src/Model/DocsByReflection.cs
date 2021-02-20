@@ -97,7 +97,7 @@ namespace DocsByReflection
         {
             string fullName;
 
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 fullName = prefix + ":" + type.FullName;
             }

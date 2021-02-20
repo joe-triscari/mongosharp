@@ -25,7 +25,7 @@ namespace MongoSharp
         {
             this.Icon = Properties.Resources.CSFile;
 
-            if (String.IsNullOrWhiteSpace(CollectionInfo.Namespace))
+            if (string.IsNullOrWhiteSpace(CollectionInfo.Namespace))
             {
                 toolStripTextBoxNamespace.Text = CollectionInfo.DefaultNamespace;
             }
@@ -51,9 +51,9 @@ namespace MongoSharp
 
             try
             {
-                if (String.IsNullOrWhiteSpace(code))
+                if (string.IsNullOrWhiteSpace(code))
                     throw new Exception("Please paste your C# model code into the editor or use the Auto Generate option.");
-                if (String.IsNullOrWhiteSpace(@namespace))
+                if (string.IsNullOrWhiteSpace(@namespace))
                     throw new Exception("Please enter a namespace.");
 
                 @namespace = @namespace.Trim();
@@ -68,33 +68,18 @@ namespace MongoSharp
                 if (!types.Any())
                     throw new Exception("No model classes are defined.");
 
-                toolStripComboBoxRootClass.Items.AddRange(
-                    (from t in types
-                     select t.Name).Cast<object>().ToArray());
-
-                if (!String.IsNullOrWhiteSpace(selectedRootClass))
-                {
-                    string found =
-                        toolStripComboBoxRootClass.Items.Cast<string>().ToList().Find(x => x == selectedRootClass);
-                    if (found != null)
-                    {
-                        toolStripComboBoxRootClass.SelectedItem = found;
-                        toolStripComboBoxRootClass.Text = found;
-                    }
-                }
-
-                if (toolStripComboBoxRootClass.Items.Count == 1)
-                {
-                    toolStripComboBoxRootClass.SelectedItem = toolStripComboBoxRootClass.Items[0];
-                }                
+                LoadRootClassDropDown(types.Select(x => x.Name).ToList(), selectedRootClass);
 
                 if(toolStripComboBoxRootClass.SelectedItem == null)
                     throw new Exception("Please select a root model class.");
             }
             catch (Exception ex)
             {
-                if(displayError)
+                if (displayError)
+                {
                     MessageBox.Show(ex.Message, "Invalid Model", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
                 return false;
             }
 
@@ -109,7 +94,7 @@ namespace MongoSharp
                 toolStripComboBoxRootClass.Items.Clear();
 
                 int sampleSize;
-                if (!Int32.TryParse(toolStripTextBoxSampleSize.Text, out sampleSize))
+                if (!int.TryParse(toolStripTextBoxSampleSize.Text, out sampleSize))
                 {
                     sampleSize = 1000;
                     toolStripTextBoxSampleSize.Text = sampleSize.ToString();
@@ -118,16 +103,43 @@ namespace MongoSharp
                 var doc =
                     MongoCollectionSchemaStore.GetSchemaDocument(CollectionInfo.Database, CollectionInfo.Name, sampleSize)
                                               .SchemaDocument;
-                List<string> classes = new BsonDocumentConverter().ToCSharpClassDeclarations(doc);
-                scintillaCode.Text = String.Join("\r\n", classes.ToArray()).TrimEnd('\r','\n').TrimStart('\r','\n');
-                toolStripComboBoxRootClass.Items.Add("Doc0");
-                toolStripComboBoxRootClass.SelectedItem = "Doc0";
+                var classes = new BsonDocumentConverter().ToCSharpClassDeclarations(doc, CollectionInfo.Name);
+                scintillaCode.Text = string.Join("\r\n", classes.ToArray()).TrimEnd('\r','\n').TrimStart('\r','\n');
+
+                var types = new MongoDynamicCodeRunner().CompileModelCode(scintillaCode.Text, toolStripTextBoxNamespace.Text ?? "DEFAULT");
+
+                LoadRootClassDropDown(types.Select(x => x.Name).ToList(), new BsonDocumentConverter().GetDocName(CollectionInfo.Name) + "Model");
             }
             finally
             {
                 Cursor.Current = Cursors.Default;
             }
             
+        }
+
+        private void LoadRootClassDropDown(List<string> classes, string selectedClass)
+        {
+            if (classes == null || !classes.Any())
+            {
+                return;
+            }
+
+            toolStripComboBoxRootClass.Items.AddRange((from cls in classes select cls).Cast<object>().ToArray());
+
+            if (!string.IsNullOrWhiteSpace(selectedClass))
+            {
+                string found = toolStripComboBoxRootClass.Items.Cast<string>().ToList().Find(x => x == selectedClass);
+                if (found != null)
+                {
+                    toolStripComboBoxRootClass.SelectedItem = found;
+                    toolStripComboBoxRootClass.Text = found;
+                }
+            }
+
+            if (toolStripComboBoxRootClass.Items.Count == 1)
+            {
+                toolStripComboBoxRootClass.SelectedItem = toolStripComboBoxRootClass.Items[0];
+            }
         }
 
         private void scintillaCode_Click(object sender, EventArgs e)
@@ -145,7 +157,7 @@ namespace MongoSharp
         private void toolStripButtonSaveAndClose_Click(object sender, EventArgs e)
         {
             string code = scintillaCode.Text;
-            if (String.IsNullOrWhiteSpace(code))
+            if (string.IsNullOrWhiteSpace(code))
             {
                 CollectionInfo.Models.Clear();
                 Settings.Instance.Save();

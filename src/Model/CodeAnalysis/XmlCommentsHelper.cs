@@ -15,7 +15,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetMethodComments(IMethodSymbol methodSymbol)
         {
-            string xmlComments = String.Empty;
+            string xmlComments = string.Empty;
 
             try
             {
@@ -43,7 +43,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
                     if (methodSymbol.IsExtensionMethod && methodInfo == null)
                     {
-                        var extenstionsMethods = (from type in containingAssembly.GetTypes()
+                        var extensionsMethods = (from type in containingAssembly.GetTypes()
                                                   where type.IsSealed && !type.IsGenericType && !type.IsNested
                                                   from method in type.GetMethods(BindingFlags.Static
                                                       | BindingFlags.Public | BindingFlags.NonPublic)
@@ -51,7 +51,7 @@ namespace MongoSharp.Model.CodeAnalysis
                                                   where method.GetParameters()[0].ParameterType.Name == methodSymbol.ReceiverType.BaseType.Name 
                                                     && methodSymbol.MetadataName == method.Name
                                                   select method).ToList();
-                        methodInfo = extenstionsMethods.Any() ? extenstionsMethods.First() : null;
+                        methodInfo = extensionsMethods.Any() ? extensionsMethods.First() : null;
                     }
                     var test = reader.GetComments(methodInfo);
 
@@ -72,7 +72,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetMethodComments(MethodInfo methodInfo)
         {
-            string xmlComments = String.Empty;
+            string xmlComments;
 
             try
             {
@@ -99,7 +99,7 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetConstructorComments(ConstructorInfo constructorInfo)
         {
-            string xmlComments = String.Empty;
+            string xmlComments;
 
             try
             {
@@ -119,13 +119,12 @@ namespace MongoSharp.Model.CodeAnalysis
 
         public string GetTypeComments(ITypeSymbol typeSymbol)
         {
-            string xmlComments = String.Empty;
+            string xmlComments = string.Empty;
 
             try
             {   
                 var containingAssembly = new AssemblyLoader().GetAssembly(typeSymbol.ContainingAssembly.Name);
-                Type type = null;
-                new TypeHelper().TryFindType(typeSymbol.ToMetadataName(), out type);
+                new TypeHelper().TryFindType(typeSymbol.ToMetadataName(), out var type);
 
                // Type type = containingAssembly.GetType(typeSymbol.ToString());
                 var reader = GetCommentReader(containingAssembly);
@@ -147,8 +146,10 @@ namespace MongoSharp.Model.CodeAnalysis
 
         private static XmlDocCommentReader GetCommentReader(Assembly assembly)
         {
-            if(_commentReaders.TryGetValue(assembly.FullName, out var reader))
+            if (_commentReaders.TryGetValue(assembly.FullName, out var reader))
+            {
                 return reader;
+            }
 
             reader = new XmlDocCommentReader(assembly);
             _commentReaders.Add(assembly.FullName, reader);

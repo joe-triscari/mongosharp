@@ -60,6 +60,12 @@ namespace MongoSharp
                 AddConnection(e.Node, connectionTag.MongoConnectionInfo);                
                 Cursor.Current = Cursors.Default;
             }
+            else if (e.Node.Text == "Indexes")
+            {
+                var collectionNode = e.Node.Parent;
+                var collectionTag = collectionNode.Tag as CollectionNodeTag;
+                AddIndexNodes(e.Node, collectionTag.MongoCollectionInfo);
+            }
         }
 
         void tvConnections_ItemDrag(object sender, ItemDragEventArgs e)
@@ -221,7 +227,8 @@ namespace MongoSharp
 
                 var indexNode = collectionNode.Nodes.Add("Indexes", "Indexes", IMG_INDEX, IMG_INDEX);
                 indexNode.Tag = "Index";
-                AddIndexNodes(indexNode, collectionInfo);
+                indexNode.Nodes.Add("Dummy", "Dummy", IMG_FIELD, IMG_FIELD);
+                //AddIndexNodes(indexNode, collectionInfo);
             }
         }
 
@@ -572,8 +579,10 @@ namespace MongoSharp
             if(!frmAddIndex.WasCancelled)
             {
                 var indexNode = node.Nodes.Find("Indexes",true);
-                if (indexNode != null && indexNode.Length > 0)
+                if (indexNode.Length > 0)
+                {
                     AddIndexNodes(indexNode[0], (node.Tag as CollectionNodeTag).MongoCollectionInfo);
+                }
             }
         }
 
