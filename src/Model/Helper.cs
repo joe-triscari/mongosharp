@@ -82,17 +82,74 @@ namespace MongoSharp.Model
                 {
                     throw new Exception("Collection not found.");
                 }
-                else
-                {
-                    var client = new MongoClient(collectionInfo.Database.Connection.GetConnectionString(collectionInfo.Database.Name));
-                    var server = client.GetServer();
-                    var database = server.GetDatabase(collectionInfo.Database.Name);
-                    var collection = database.GetCollection<T>(collectionInfo.Name);
 
-                    return collection;
-                }
+                var client = new MongoClient(collectionInfo.Database.Connection.GetConnectionString(collectionInfo.Database.Name));
+                var server = client.GetServer();
+                var database = server.GetDatabase(collectionInfo.Database.Name);
+                var collection = database.GetCollection<T>(collectionInfo.Name);
+
+                return collection;
             }
             catch(Exception e)
+            {
+                throw new Exception($"Error getting collection for type '{typeof(T).ToString()}'.", e);
+            }
+
+        }
+
+        public static MongoCollection<T> GetCollection<T>(string collectionName) where T : new()
+        {
+            try
+            {
+                string ns;
+
+                var index = collectionName.LastIndexOf('.');
+                if (index >= 0)
+                {
+                    ns = collectionName;
+                }
+                else
+                {
+                    var t = new T();
+                    var tt = t.GetType();
+
+                    ns = tt.Namespace;
+                    index = ns.LastIndexOf('.');
+                    if (index >= 0)
+                    {
+                        ns = ns.Substring(0, index) + $".{collectionName}";
+                    }
+                }
+
+                MongoCollectionInfo collectionInfo = null;
+                foreach (var conn in Settings.Instance.Connections)
+                {
+                    foreach (var dbInfo in conn.Databases)
+                    {
+                        foreach (var collInfo in dbInfo.Collections)
+                        {
+                            if ("MongoSharp.Query." + collInfo.Namespace == ns)
+                            {
+                                collectionInfo = collInfo;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (collectionInfo == null)
+                {
+                    throw new Exception($"Collection '{collectionName}' not found.");
+                }
+
+                var client = new MongoClient(collectionInfo.Database.Connection.GetConnectionString(collectionInfo.Database.Name));
+                var server = client.GetServer();
+                var database = server.GetDatabase(collectionInfo.Database.Name);
+                var collection = database.GetCollection<T>(collectionInfo.Name);
+
+                return collection;
+            }
+            catch (Exception e)
             {
                 throw new Exception($"Error getting collection for type '{typeof(T).ToString()}'.", e);
             }

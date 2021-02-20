@@ -199,11 +199,10 @@ namespace MongoSharp.Model
             sb.AppendLine("\t\t\tSystem.Console.WriteLine(output);");
             sb.AppendLine("\t\t}");
 
-            sb.AppendLine("\t\tstatic MongoCollection<T> GetCollection<T>() where T : new()");
+            sb.AppendLine("\t\tstatic MongoCollection<T> GetCollection<T>(string collectionName = null) where T : new()");
             sb.AppendLine("\t\t{");
-            sb.AppendLine("\t\t\treturn Helper.GetCollection<T>();");
+            sb.AppendLine("\t\t\treturn string.IsNullOrWhiteSpace(collectionName) ? Helper.GetCollection<T>() : Helper.GetCollection<T>(collectionName);");
             sb.AppendLine("\t\t}");
-
             sb.AppendLine("\t}");
             sb.AppendLine("}");
 

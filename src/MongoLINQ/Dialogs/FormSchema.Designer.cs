@@ -109,6 +109,7 @@
             // 
             // toolStripTextBoxSampleSize
             // 
+            this.toolStripTextBoxSampleSize.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBoxSampleSize.Name = "toolStripTextBoxSampleSize";
             this.toolStripTextBoxSampleSize.Size = new System.Drawing.Size(100, 25);
             this.toolStripTextBoxSampleSize.Text = "1000";
@@ -142,7 +143,17 @@
             this.scintillaCode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scintillaCode.Location = new System.Drawing.Point(0, 50);
             this.scintillaCode.Name = "scintillaCode";
-            this.scintillaCode.Size = new System.Drawing.Size(830, 470);
+            this.scintillaCode.Scrolling.HorizontalScrollTracking = false;
+            this.scintillaCode.Size = new System.Drawing.Size(830, 448);
+            this.scintillaCode.Styles.BraceBad.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.BraceLight.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.CallTip.FontName = "Segoe UI\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.ControlChar.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.Default.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.IndentGuide.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.LastPredefined.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.LineNumber.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            this.scintillaCode.Styles.Max.FontName = "Verdana\0\0\0\0\0\0\0\0\0\0\0\0\0";
             this.scintillaCode.TabIndex = 1;
             this.scintillaCode.Click += new System.EventHandler(this.scintillaCode_Click);
             // 
@@ -181,6 +192,7 @@
             // 
             // toolStripTextBoxNamespace
             // 
+            this.toolStripTextBoxNamespace.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBoxNamespace.Name = "toolStripTextBoxNamespace";
             this.toolStripTextBoxNamespace.Size = new System.Drawing.Size(300, 25);
             // 
@@ -189,8 +201,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 520);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.scintillaCode);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
             this.Name = "FormSchema";
