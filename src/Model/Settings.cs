@@ -22,6 +22,25 @@ namespace MongoSharp.Model
         }
 
         public List<MongoConnectionInfo> Connections { get; set; }
+
+        public void EnumerateCollections(Predicate<MongoCollectionInfo> predicate, Action < MongoConnectionInfo, MongoDatabaseInfo, MongoCollectionInfo> action)
+        {
+            foreach (var connection in Connections)
+            {
+                foreach (var dbInfo in connection.Databases)
+                {
+                    foreach (var collInfo in dbInfo.Collections)
+                    {
+                        if (predicate != null && !predicate(collInfo))
+                        {
+                            continue;
+                        }
+                        action?.Invoke(connection, dbInfo, collInfo);
+                    }
+                }
+            }
+        }
+
         public List<string> RecentlyUsed { get; set; }
         public Preferences Preferences { get; set; }
         public List<CodeSnippet> CodeSnippets { get; set; }

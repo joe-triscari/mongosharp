@@ -138,10 +138,17 @@
     <Compile Include="CodeAnalysis\TypeHelper.cs" />
     <Compile Include="CodeAnalysis\XmlCommentsHelper.cs" />
     <Compile Include="CodeFormatter.cs" />
+    <Compile Include="CodeGen\CodeGenModel.cs" />
+    <Compile Include="CodeGen\T4Partial\MongoCodeBehindGen.cs" />
     <Compile Include="CodeSnippet.cs" />
     <Compile Include="DocsByReflection.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Interface\IOutputWindow.cs" />
+    <Compile Include="CodeGen\MongoCodeBehindGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MongoCodeBehindGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="MongoExtensions.cs" />
     <Compile Include="MongoSharpFile.cs" />
     <Compile Include="MongoCodeGenerator.cs" />
@@ -179,6 +186,13 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeGen\MongoCodeBehindGen.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MongoCodeBehindGen.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
