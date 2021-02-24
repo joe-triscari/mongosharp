@@ -1,0 +1,86 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System;
+using System.Linq;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
+using MongoDB.Driver.Core;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
+using System.Collections.Generic;
+using MongoSharp.Model;
+
+namespace MongoSharp.Query
+{
+<#if (Model.Mode != MongoSharpQueryMode.Json) { #>
+    #region Model
+    <#Settings.Instance.EnumerateCollections(collInfo => collInfo.HasModel && !string.IsNullOrWhiteSpace(collInfo.Namespace), (conn, dbInfo, collInfo) => {#>
+    namespace <#=collInfo.Namespace#>
+    {
+    <#=collInfo.Models[0].ModelCode#>
+    }
+    <#});#>
+    #endregion
+<#}#>
+
+    public class QueryExecutor
+    {
+        static List<QueryResult> _queryResults;
+
+        public static List<QueryResult> RunQuery(System.IO.TextWriter textWriter)
+        {
+            _queryResults = new List<QueryResult>();
+            if (textWriter != null) System.Console.SetOut(textWriter);
+
+            #region Reserved Keywords
+            var client = new MongoClient("<#=Model.MongoDatabaseInfo.Connection.GetConnectionString(Model.MongoDatabaseInfo.Name) #>");
+            var server = client.GetServer();
+            var database = server.GetDatabase("<#=Model.MongoDatabaseInfo.Name #>");
+            var collection = database.GetCollection<<#=Model.ModelType #>>("<#=Model.MongoCollectionInfo.Name #>");
+            #endregion
+
+            #region Injected Code
+<#if (Model.Mode == MongoSharpQueryMode.CSharpStatements) {#>
+            <#=Model.LinqQuery #>
+<#} 
+else if(Model.Mode == MongoSharpQueryMode.CSharpQuery) {#>
+            Dump(<#=Model.LinqQuery #>);
+<#}
+            else if(Model.Mode == MongoSharpQueryMode.Json)
+            {             
+                string linqQuery = Model.LinqQuery.Replace("\"", "\\\"");
+                linqQuery = linqQuery.Replace("\'", "\\\'");
+                linqQuery = linqQuery.Replace("\r", "");
+                linqQuery = linqQuery.Replace("\n", "");
+#>
+            string json = "<#=linqQuery #>";
+             
+            Dump(collection.Find(new QueryDocument(BsonDocument.Parse(json))));
+<#}#>
+
+            #endregion
+
+            return _queryResults;
+        }
+
+        static void Dump<T>(T result)
+        {
+            _queryResults.Add(QueryResult.ToQueryResult(result));
+        }
+        static void Print(string output)
+        {
+            System.Console.WriteLine(output);
+        }
+        static MongoCollection<T> GetCollection<T>(string collectionName = null) where T : new()
+        {
+            return string.IsNullOrWhiteSpace(collectionName) ? Helper.GetCollection<T>() : Helper.GetCollection<T>(collectionName);
+        }
+    }
+}
+
+
